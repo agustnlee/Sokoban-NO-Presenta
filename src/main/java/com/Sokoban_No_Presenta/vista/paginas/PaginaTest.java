@@ -1,5 +1,5 @@
 package vista.paginas;
 
-public class PaginaJuego {
+public class PaginaTest {
     
 }
