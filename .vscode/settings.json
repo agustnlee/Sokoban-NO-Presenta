@@ -1,6 +1,5 @@
 {
-    "java.project.sourcePaths": [
-        "src/main/java/com/Sokoban_No_Presenta",
-        "src/main/java"
-    ]
+    "java.project.sourcePaths": ["src/main/java"],
+    "java.project.resourcePaths": ["src/main/resources"],
+    "java.project.outputPath": "target/classes"
 }
