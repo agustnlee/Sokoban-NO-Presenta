@@ -1,6 +1,5 @@
 package vista;
 
-// TODO: importar las paginas y overlays aca
 import vista.utils.UtilVisibilidad;
 
 import javax.swing.JFrame;
@@ -35,25 +34,20 @@ public class MainVista {
                 confirmarSalida();
             }
         });
-        this.frame.setVisible(true);
-
-        int w = frame.getContentPane().getWidth();
-        int h = frame.getContentPane().getHeight();
 
         // Páginas instanciacion
 
         JLayeredPane layers = frame.getLayeredPane();
 
-        // TODO:  usar modal layer y paeltte layer para layered pane
+        // TODO: usar modal layer y palette layer para layered pane
 
         // TODO: falta seteo inicial de visibilidad con UtilVisibilidad.mostrar(Jcomp);
-        
 
+        this.frame.setVisible(true);
         frame.revalidate();
         frame.repaint();
     }
 
-    
     private void confirmarSalida() {
         int opcion = JOptionPane.showConfirmDialog(
             frame,
@@ -69,9 +63,7 @@ public class MainVista {
 
     // Getters páginas
 
-
     // Getters overlays
-    
 
     public JFrame getFrame() { return frame; }
 }
