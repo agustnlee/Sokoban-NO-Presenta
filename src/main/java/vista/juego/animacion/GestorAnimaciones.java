@@ -95,4 +95,14 @@ public class GestorAnimaciones {
         }
         actual = cola.poll();
     }
+    
+    
+    public void cancelar() {
+        cola.clear();
+        if (actual != null) {
+            actual.getEntidad().setAnimando(false);
+            actual = null;
+        }
+        onTodasTerminadas = null;
+    }
 }
