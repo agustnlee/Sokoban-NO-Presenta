@@ -31,26 +31,30 @@ public class GestorAnimaciones {
         cola.clear();
         actual = null;
 
-        // 1. Animación del jugador
+        // Jugador
         EntidadVisual jugador = estado.getEntidad(
             mv.getJugadorOrigenFila(), mv.getJugadorOrigenCol()
         );
         if (jugador != null) {
-            cola.add(crearAnimacion(jugador,
-                mv.getJugadorOrigenFila(),  mv.getJugadorOrigenCol(),
-                mv.getJugadorDestinoFila(), mv.getJugadorDestinoCol(),
-                null
+            final int dF = mv.getJugadorDestinoFila();
+            final int dC = mv.getJugadorDestinoCol();
+            final int oF = mv.getJugadorOrigenFila();
+            final int oC = mv.getJugadorOrigenCol();
+            cola.add(crearAnimacion(jugador, oF, oC, dF, dC,
+                () -> estado.moverEntidad(oF, oC, dF, dC)  // ← callback mueve en matriz
             ));
         }
 
-        // 2. Deslizamientos encadenados (caja empujada, etc.)
+    // Deslizamientos encadenados
         for (DeslizamientoVisual d : mv.getDeslizamientos()) {
             EntidadVisual entidad = estado.getEntidad(d.getOrigenFila(), d.getOrigenCol());
             if (entidad != null) {
-                cola.add(crearAnimacion(entidad,
-                    d.getOrigenFila(),  d.getOrigenCol(),
-                    d.getDestinoFila(), d.getDestinoCol(),
-                    null
+                final int oF = d.getOrigenFila();
+                final int oC = d.getOrigenCol();
+                final int dF = d.getDestinoFila();
+                final int dC = d.getDestinoCol();
+                cola.add(crearAnimacion(entidad, oF, oC, dF, dC,
+                    () -> estado.moverEntidad(oF, oC, dF, dC)  // ← idem
                 ));
             }
         }
@@ -74,12 +78,9 @@ public class GestorAnimaciones {
         return actual != null && !actual.isTerminada();
     }
 
-    // -------------------------------------------------------------------------
 
-    private AnimacionDeslizamiento crearAnimacion(EntidadVisual entidad,
-                                                   int origenFila,  int origenCol,
-                                                   int destinoFila, int destinoCol,
-                                                   Runnable extra) {
+    private AnimacionDeslizamiento crearAnimacion(EntidadVisual entidad, int origenFila,  int origenCol,
+                                                   int destinoFila, int destinoCol, Runnable extra) {
         float ox = origenCol  * tamCelda;
         float oy = origenFila * tamCelda;
         float dx = destinoCol  * tamCelda;

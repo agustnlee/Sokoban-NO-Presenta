@@ -20,23 +20,17 @@ import java.awt.image.BufferedImage;
 
 public class PanelMapa extends JPanel {
 
-    // -------------------------------------------------------------------------
-    // Constantes
-    // -------------------------------------------------------------------------
     private static final int TAM_CELDA_DEFAULT = 100; // px por celda
     private static final int FPS               = 60;
     private static final int INTERVALO_ANIM_MS = 1000 / FPS;
     private static final int INTERVALO_WALK_MS = 300;
 
-    // -------------------------------------------------------------------------
-    // Estado del mapa
-    // -------------------------------------------------------------------------
     private EstadoVisualMapa estado;
     private final int tamCelda;
 
-    // -------------------------------------------------------------------------
+
     // Animación de entidades
-    // -------------------------------------------------------------------------
+
     private final GestorAnimaciones gestor;
     private final Timer             timerRender;
 
@@ -53,9 +47,9 @@ public class PanelMapa extends JPanel {
     // Callback que avisa al controlador que terminaron las animaciones
     private Runnable onAnimacionTerminada;
 
-    // -------------------------------------------------------------------------
+
     // Constructor
-    // -------------------------------------------------------------------------
+
     public PanelMapa(int filas, int columnas) {
         this(filas, columnas, TAM_CELDA_DEFAULT);
     }
@@ -80,9 +74,7 @@ public class PanelMapa extends JPanel {
         iniciarAnimadoresDefault();
     }
 
-    // -------------------------------------------------------------------------
-    // API pública
-    // -------------------------------------------------------------------------
+    // metodos publico
 
     /**
      * Carga un estado completo del mapa (inicio de nivel o undo).
@@ -128,9 +120,8 @@ public class PanelMapa extends JPanel {
 
     public int getTamCelda() { return tamCelda; }
 
-    // -------------------------------------------------------------------------
     // Render — 3 pasadas
-    // -------------------------------------------------------------------------
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -145,7 +136,7 @@ public class PanelMapa extends JPanel {
         int filas    = estado.getFilas();
         int columnas = estado.getColumnas();
 
-        // --- Pasada 1: suelo ---------------------------------------------------
+        // --- Pasada 1: suelo 
         for (int f = 0; f < filas; f++) {
             for (int c = 0; c < columnas; c++) {
                 TipoCeldaVisual tipo = estado.getSuelo(f, c);
@@ -153,7 +144,7 @@ public class PanelMapa extends JPanel {
             }
         }
 
-        // --- Pasada 2: entidades (cajas, escalera, paredes) --------------------
+        // --- Pasada 2: entidades (cajas, escalera, paredes) 
         for (int f = 0; f < filas; f++) {
             for (int c = 0; c < columnas; c++) {
                 EntidadVisual entidad = estado.getEntidad(f, c);
@@ -180,15 +171,14 @@ public class PanelMapa extends JPanel {
             }
         }
 
-        // --- Pasada 3: jugador -------------------------------------------------
+        // --- Pasada 3: jugador --
         dibujarJugador(g2d, filas, columnas);
 
         g2d.dispose();
     }
 
-    // -------------------------------------------------------------------------
     // Helpers privados
-    // -------------------------------------------------------------------------
+
 
     private void onTick() {
         long ahora = System.currentTimeMillis();
@@ -220,7 +210,7 @@ public class PanelMapa extends JPanel {
     }
 
     private void iniciarAnimadoresDefault() {
-        CargadorImagen cargador = CargadorImagen.getInstancia();
+        CargadorImagen cargador = CargadorImagen.getInstancia(); //TODO CHEQUEAR PATH IMG
 
         BufferedImage jugador0 = cargador.cargar("/imagenes/entidades/jugador_0.png");
         BufferedImage jugador1 = cargador.cargar("/imagenes/entidades/jugador_1.png");

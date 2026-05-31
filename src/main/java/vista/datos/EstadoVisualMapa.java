@@ -27,4 +27,14 @@ public class EstadoVisualMapa {
     public boolean hayEntidad(int fila, int col) {
         return entidades[fila][col] != null;
     }
+
+    /**
+    * Mueve una entidad de una celda a otra en la matriz.
+    * Llamado por GestorAnimaciones al terminar cada animación.
+    */
+    public void moverEntidad(int origenFila, int origenCol, int destinoFila, int destinoCol) {
+        EntidadVisual entidad = entidades[origenFila][origenCol];
+        entidades[destinoFila][destinoCol] = entidad;
+        entidades[origenFila][origenCol]   = null;
+    }
 }
