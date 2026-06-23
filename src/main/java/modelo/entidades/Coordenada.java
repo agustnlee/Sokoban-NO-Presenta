@@ -16,4 +16,12 @@ public class Coordenada {
     public Coordenada sumar(Direccion dir) {
         return new Coordenada(fila + dir.getDireccionFila(), columna + dir.getDireccionColumna());
     }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
 }

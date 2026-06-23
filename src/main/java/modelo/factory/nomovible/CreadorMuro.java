@@ -1,5 +1,14 @@
 package modelo.factory.nomovible;
 
-public class CreadorMuro {
+import modelo.entidades.nomovible.EntidadNoMovible;
+import modelo.entidades.nomovible.Muro;
+
+public class CreadorMuro implements CreadorNoMovible {
+
+    @Override
+    public EntidadNoMovible crear() {
+        return (EntidadNoMovible) new Muro();
+    }
     
 }
+

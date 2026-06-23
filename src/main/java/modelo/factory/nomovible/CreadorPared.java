@@ -1,5 +1,12 @@
 package modelo.factory.nomovible;
 
-public class CreadorPared {
-    
+import modelo.entidades.nomovible.Pared;
+import modelo.entidades.nomovible.EntidadNoMovible;
+
+public class CreadorPared implements CreadorNoMovible{
+
+    @Override
+    public EntidadNoMovible crear() {
+        return new Pared();
+    }
 }

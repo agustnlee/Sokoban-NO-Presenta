@@ -1,5 +1,13 @@
 package modelo.factory.nomovible;
 
-public class CreadorCasillaDestino {
+import modelo.entidades.nomovible.CasillaDestino;
+import modelo.entidades.nomovible.EntidadNoMovible;
+
+public class CreadorCasillaDestino implements CreadorNoMovible {
+
+    @Override
+    public EntidadNoMovible crear() {
+        return new CasillaDestino();
+    }
     
 }
