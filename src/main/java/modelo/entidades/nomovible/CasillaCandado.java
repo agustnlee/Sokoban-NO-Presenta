@@ -7,21 +7,16 @@ import modelo.entidades.nomovible.observer.PublicadorMuro;
 
 public class CasillaCandado implements EntidadNoMovible {
     
-    private PublicadorMuro publicador;
+    private PublicadorMuro publicadorMuro;
     private boolean llaveInsertada;
 
-    public CasillaCandado(PublicadorMuro publicador) {
-        this.publicador = publicador;
-        this.llaveInsertada = false;
-    }
-
     public CasillaCandado() {
-        this.publicador = null;
+        this.publicadorMuro = null;
         this.llaveInsertada = false;
     }
 
-    public void setPublicador(PublicadorMuro publicador) {
-        this.publicador = publicador;
+    public void setPublicadorMuro(PublicadorMuro publicador) {
+        this.publicadorMuro = publicador;
     }
 
     @Override
@@ -31,10 +26,6 @@ public class CasillaCandado implements EntidadNoMovible {
 
     @Override
     public boolean efectoAlEntrar(EntidadMovible e) {
-        // Pseudo-código: if (e.esLlaveCorrecta()) {
-        //this.llaveInsertada = true;
-        //this.publicador.notificarSubscriptores(this.llaveInsertada);
-        // }
         e.setComportamientoMovible(new MovimientoNormal());
         return false;
     }
@@ -43,15 +34,23 @@ public class CasillaCandado implements EntidadNoMovible {
     public void saleEntidadMovible() {
         if (this.llaveInsertada) {
             this.llaveInsertada = false;
-            this.publicador.notificarSubscriptores(this.llaveInsertada); 
+            this.publicadorMuro.notificarSubscriptores(this.llaveInsertada); 
         }
     }
 
     @Override
     public boolean alterarCandado() { 
         this.llaveInsertada = true;
-        this.publicador.notificarSubscriptores(this.llaveInsertada); 
+        this.publicadorMuro.notificarSubscriptores(this.llaveInsertada); 
         return this.llaveInsertada; 
+    }
+    public void restaurarLlaveInsertada(boolean estado) {
+        this.llaveInsertada = estado;
+        publicadorMuro.notificarSubscriptores(estado);
+    }
+ 
+    public boolean getLlaveInsertada() {
+        return llaveInsertada;
     }
 
     @Override
