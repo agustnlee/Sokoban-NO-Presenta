@@ -1,5 +1,12 @@
 package modelo.entidades.movible.strategy.caja;
 
-public class EstrategiaFragil {
+import modelo.entidades.TipoEntidad;
+
+public class EstrategiaFragil implements ComportamientoCaja {
+
+    @Override
+    public TipoEntidad getTipoEntidad() {
+        return TipoEntidad.CAJA;
+    }
     
 }

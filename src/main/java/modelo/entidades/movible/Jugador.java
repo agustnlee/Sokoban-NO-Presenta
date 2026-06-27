@@ -1,5 +1,9 @@
 package modelo.entidades.movible;
 
-public class Jugador {
-    
+import modelo.entidades.Coordenada;
+
+public class Jugador extends EntidadMovible {
+    public Jugador(Coordenada posicion) {
+        super(posicion);
+    }
 }

@@ -1,7 +1,9 @@
 package modelo.entidades.nomovible;
 
+import modelo.entidades.Tablero;
 import modelo.entidades.TipoEntidad;
 import modelo.entidades.movible.EntidadMovible;
+import modelo.entidades.movible.strategy.entidadmovible.MovimientoNormal;
 public class CasillaDestino implements EntidadNoMovible {
 
     public CasillaDestino() { 
@@ -14,10 +16,8 @@ public class CasillaDestino implements EntidadNoMovible {
     }
 
     @Override
-    public void efectoAlEntrar(EntidadMovible e) {
-        // La validación de bloqueo se delega al patrón Strategy de la caja (EstrategiaBloqueable).
-        // La casilla en sí misma no hace nada activo aquí.
-
+    public void efectoAlEntrar(EntidadMovible entidad) {
+        entidad.setComportamientoMovible(new MovimientoNormal());   
     }
 
     @Override

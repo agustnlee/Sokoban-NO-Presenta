@@ -1,16 +1,20 @@
 package modelo.entidades;
 
 import modelo.entidades.movible.EntidadMovible;
+import modelo.entidades.movible.Jugador;
 import modelo.entidades.nomovible.EntidadNoMovible;
+
 public class Tablero {
 
     // Constantes que definen los límites estructurales inmutables del nivel
-    public static final int FILAS = 5;
-    public static final int COLUMNAS = 10;
+    private final int FILAS = 5;
+    private final int COLUMNAS = 10;
 
     // Matriz que representa el terreno estático del mapa
     private EntidadNoMovible[][] capaNoMovible;
     private EntidadMovible[][]   capaMovible;
+
+    private Jugador jugador;
 
     public Tablero() {
         this.capaNoMovible = new EntidadNoMovible[FILAS][COLUMNAS];
@@ -49,9 +53,27 @@ public class Tablero {
         this.capaNoMovible[c.getFila()][c.getColumna()] = e;
     }
 
-    public void moverEntidad(EntidadMovible e, Coordenada origen, Coordenada destino) {
-        // Mover la entidad movible en la capa correspondiente
-        this.capaMovible[destino.getFila()][destino.getColumna()] = e;
-        this.capaMovible[origen.getFila()][origen.getColumna()] = null;
+    public void moverEntidad(EntidadMovible entidad, Coordenada destino) {
+        Coordenada actual = entidad.getPosicion();
+        capaMovible[actual.getFila()][actual.getColumna()] = null;
+        capaMovible[destino.getFila()][destino.getColumna()] = entidad;
+        entidad.setPosicion(destino);
     }
+
+    public int getFilaMax() {
+        return FILAS;
+    }
+
+    public int getColumnaMax() {
+        return COLUMNAS;
+    }
+
+    public void setJugador(Jugador j) {
+        this.jugador = j;
+    }
+
+    public Jugador getJugador() {
+        return jugador;
+    }
+
 }
