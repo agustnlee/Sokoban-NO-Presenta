@@ -7,7 +7,7 @@ public class CreadorMuro implements CreadorNoMovible {
 
     @Override
     public EntidadNoMovible crear() {
-        return (EntidadNoMovible) new Muro();
+        return new Muro();
     }
     
 }

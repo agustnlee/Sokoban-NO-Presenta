@@ -92,6 +92,6 @@ public class Escalera extends EntidadMovible {
             candidata = candidata.sumar(dir);
         }
  
-        return false; // no hay ninguna posicion libre hasta el borde del tablero
+        return false; 
     }
 }
