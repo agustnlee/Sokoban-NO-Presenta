@@ -31,8 +31,7 @@ public abstract class EntidadMovible {
         }
 
         if (tablero.hayMovible(destino)) {
-            tablero.getMovible(destino).recibirEmpuje(dir, tablero, this);
-            return false; // quien empuja nunca avanza directamente, solo si la cadena lo permite
+            return tablero.getMovible(destino).recibirEmpuje(dir, tablero, this);
         }
 
         EntidadNoMovible casillaDestino = tablero.getNoMovible(destino);
@@ -49,11 +48,13 @@ public abstract class EntidadMovible {
     /**
     Sin preguntar tipo concreto, empuja y si funciona reposiciona la entidad que lo empujo
      */
-    public void recibirEmpuje(Direccion dir, Tablero tablero, EntidadMovible empujador) {
+    public boolean recibirEmpuje(Direccion dir, Tablero tablero, EntidadMovible empujador) {
         Coordenada posicionVieja = this.getPosicion();
-        if (this.mover(dir, tablero)) {
+        boolean movido = this.mover(dir, tablero);
+        if (movido) {
             tablero.moverEntidad(empujador, posicionVieja);
         }
+        return movido;
     }
 
 
