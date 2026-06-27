@@ -22,20 +22,12 @@ public class CasillaDestino implements EntidadNoMovible {
     }
 
     @Override
-    public void saleEntidadMovible() {
-        // Sin comportamiento especial al salir (si es que la entidad no estaba bloqueada).
-    }
-
-    @Override
-    public boolean alterarCandado() {
-        //
-        return false;
-    }
+    public void saleEntidadMovible() { }
 
     @Override
     public boolean alterarDestino() {
         //
-        return false;
+        return true;
     }
 
     @Override
