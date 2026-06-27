@@ -9,11 +9,9 @@ import modelo.entidades.nomovible.state.MuroCerrado;
 
 public class Muro implements EntidadNoMovible, SubscriptorMuro {
 
-    // Patrón State: El muro no sabe si es transitable, se lo pregunta a su estado.
     private EstadoMuro estado;
 
     public Muro() {
-        // Por defecto, el muro comienza cerrado.
         this.estado = new MuroCerrado();
     }
 
@@ -23,7 +21,6 @@ public class Muro implements EntidadNoMovible, SubscriptorMuro {
 
     @Override
     public boolean recibirEntidadMovible(EntidadMovible e) {
-        // Delega la responsabilidad: si está abierto retorna true, si está cerrado false.
         return this.estado.esTransitable();
     }
 
@@ -31,11 +28,6 @@ public class Muro implements EntidadNoMovible, SubscriptorMuro {
     public boolean efectoAlEntrar(EntidadMovible e) {
         e.setComportamientoMovible(new MovimientoNormal());
         return false;
-    }
-
-    @Override
-    public void saleEntidadMovible() {
-        // Sin comportamiento especial al salir
     }
 
     @Override

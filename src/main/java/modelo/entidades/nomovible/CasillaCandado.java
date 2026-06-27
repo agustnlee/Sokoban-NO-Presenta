@@ -26,14 +26,14 @@ public class CasillaCandado implements EntidadNoMovible {
 
     @Override
     public boolean recibirEntidadMovible(EntidadMovible e) {
-        return true; // Siempre se puede empujar algo hacia el candado
+        return true; 
     }
 
     @Override
     public boolean efectoAlEntrar(EntidadMovible e) {
         // Pseudo-código: if (e.esLlaveCorrecta()) {
         //this.llaveInsertada = true;
-        //this.publicador.notificarSubscriptores(this.llaveInsertada); // Envía 'true'
+        //this.publicador.notificarSubscriptores(this.llaveInsertada);
         // }
         e.setComportamientoMovible(new MovimientoNormal());
         return false;
@@ -41,24 +41,21 @@ public class CasillaCandado implements EntidadNoMovible {
 
     @Override
     public void saleEntidadMovible() {
-        // Si el jugador hace Undo, la llave sale de la casilla.
-        // Hay que volver a cerrar los muros.
         if (this.llaveInsertada) {
             this.llaveInsertada = false;
-            this.publicador.notificarSubscriptores(this.llaveInsertada); // Envía 'false'
+            this.publicador.notificarSubscriptores(this.llaveInsertada); 
         }
     }
 
     @Override
     public boolean alterarCandado() { 
         this.llaveInsertada = true;
-        this.publicador.notificarSubscriptores(this.llaveInsertada); // Envía 'true'
-        return this.llaveInsertada; // Retorna el nuevo estado del candado (true si se insertó la llave)
+        this.publicador.notificarSubscriptores(this.llaveInsertada); 
+        return this.llaveInsertada; 
     }
 
     @Override
     public boolean alterarDestino() {
-        // Descripcion: Sólo override CasillaCandado
         return false;
     }
 

@@ -5,9 +5,7 @@ import modelo.entidades.movible.EntidadMovible;
 import modelo.entidades.movible.strategy.entidadmovible.MovimientoNormal;
 public class CasillaDestino implements EntidadNoMovible {
 
-    public CasillaDestino() { 
-        // Constructor vacío
-    }
+    public CasillaDestino() {  }
 
     @Override
     public boolean recibirEntidadMovible(EntidadMovible e) {
@@ -20,13 +18,10 @@ public class CasillaDestino implements EntidadNoMovible {
         return false; 
     }
 
+ 
     @Override
-    public void saleEntidadMovible() { }
-
-    @Override
-    public boolean alterarDestino() {
-        //
-        return true;
+    public boolean alterarDestino() { 
+        return true; 
     }
 
     @Override
