@@ -31,17 +31,6 @@ public class Muro implements EntidadNoMovible, SubscriptorMuro {
     }
 
     @Override
-    public boolean alterarCandado() {
-        // El muro es el que reacciona al candado, no el que lo altera.
-        return false;
-    }
-
-    @Override
-    public boolean alterarDestino() {
-        // El muro no tiene un destino que alterar, sólo reacciona al candado.
-        return false;
-    }
-    @Override
     public TipoEntidad getTipoEntidad() {
         return this.estado.getTipoEntidad();
     }

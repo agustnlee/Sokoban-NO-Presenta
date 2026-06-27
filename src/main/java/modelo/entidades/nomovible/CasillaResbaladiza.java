@@ -6,7 +6,7 @@ import modelo.entidades.movible.strategy.entidadmovible.MovimientoResbaladizo;
 
 public class CasillaResbaladiza implements EntidadNoMovible {
     public CasillaResbaladiza(){ }
-    
+
     @Override
     public boolean recibirEntidadMovible(EntidadMovible e) {
         return true; 
@@ -17,14 +17,6 @@ public class CasillaResbaladiza implements EntidadNoMovible {
         return true;
     }
 
-    @Override
-    public boolean alterarCandado() {
-        return false;
-    }
-    @Override
-    public boolean alterarDestino() {
-        return false;
-    }
 
     @Override
     public TipoEntidad getTipoEntidad() {

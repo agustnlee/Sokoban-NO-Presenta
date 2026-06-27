@@ -55,11 +55,6 @@ public class CasillaCandado implements EntidadNoMovible {
     }
 
     @Override
-    public boolean alterarDestino() {
-        return false;
-    }
-
-    @Override
     public TipoEntidad getTipoEntidad() {
         return TipoEntidad.CANDADO;
     }
