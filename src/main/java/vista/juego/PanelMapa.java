@@ -4,7 +4,6 @@ import vista.datos.EntidadVisual;
 import vista.datos.EstadoVisualMapa;
 import vista.datos.MovimientoVisual;
 import vista.datos.TipoCeldaVisual;
-import vista.juego.animacion.AnimacionDeslizamiento;
 import vista.juego.animacion.AnimadorFrames;
 import vista.juego.animacion.GestorAnimaciones;
 import vista.utils.CargadorImagen;

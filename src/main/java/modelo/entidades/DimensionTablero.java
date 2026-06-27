@@ -2,7 +2,7 @@ package modelo.entidades;
 
 public enum DimensionTablero {
  
-    ESTANDAR(5, 10);
+    ESTANDAR(5, 10); // TODO MODIFICAR EN BASE VISTA
  
     private final int filas;
     private final int columnas;
