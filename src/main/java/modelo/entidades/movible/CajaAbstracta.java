@@ -7,10 +7,7 @@ public abstract class CajaAbstracta extends EntidadMovible {
 
     protected ComportamientoCaja estrategia;
 
-    protected CajaAbstracta(ComportamientoCaja estrategia, Coordenada posicion) {
-        super(posicion);
-        this.estrategia = estrategia;
-    }
+    protected CajaAbstracta() { }
 
     public void setEstrategia(ComportamientoCaja estrategia) {
         this.estrategia = estrategia;

@@ -13,8 +13,7 @@ public abstract class EntidadMovible {
     private Coordenada posicion;
     private ComportamientoEntidadMovible comportamientoMovible;
 
-    protected EntidadMovible(Coordenada posicion) {
-        this.posicion = posicion;
+    protected EntidadMovible() {
         this.comportamientoMovible = new MovimientoNormal();
     }
 
@@ -47,7 +46,7 @@ public abstract class EntidadMovible {
         if (sigueMoviendo) {
             this.mover(dir, tablero);
         }
-        
+
         return true;
     }
 
