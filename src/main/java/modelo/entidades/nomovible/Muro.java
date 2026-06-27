@@ -35,17 +35,11 @@ public class Muro implements EntidadNoMovible, SubscriptorMuro {
         return this.estado.getTipoEntidad();
     }
 
-    // --- MÉTODOS DEL PATRÓN OBSERVER --- //
 
     public void actualizarMuro(boolean estadoCandado) {
-        // Cuando el Publicador avisa que la llave entró (o salió con un Undo),
-        // el muro le pide a su estado actual que se evalúe y cambie si es necesario.
         this.estado.evaluarEstado(this, estadoCandado);
     }
 
-    // --- GETTERS Y SETTERS (Para el Patrón State) --- //
-
-    // Este método lo usarán MuroAbierto y MuroCerrado para cambiarse a sí mismos
     public void setEstado(EstadoMuro nuevoEstado) {
         this.estado = nuevoEstado;
     }
