@@ -1,6 +1,5 @@
 package modelo.entidades.movible;
 
-import modelo.entidades.Coordenada;
 import modelo.entidades.movible.strategy.caja.ComportamientoCaja;
 
 public abstract class CajaAbstracta extends EntidadMovible {

@@ -8,7 +8,10 @@ public class EstrategiaNormal implements ComportamientoCaja {
 
     @Override
     public void reaccionarLlegada(Caja caja, Tablero tablero) {
-        tablero.getNoMovible(caja.getPosicion()).alterarDestino(caja);
+        boolean llegoADestino = tablero.getNoMovible(caja.getPosicion()).alterarDestino();
+        if (llegoADestino) {
+            caja.alterarBloqueada(true);
+        }
     }
 
     @Override

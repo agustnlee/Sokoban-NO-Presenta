@@ -41,7 +41,7 @@ public abstract class EntidadMovible {
         tablero.getNoMovible(this.posicion).saleEntidadMovible();
         tablero.moverEntidad(this, destino);
         boolean sigueMoviendo = casillaDestino.efectoAlEntrar(this); // efecto aplicado
-        //this.reaccionarLlegada(tablero); TODO: CHQUEAR SI ES NECESARIO
+        this.reaccionarLlegada(tablero); //TODO: CHQUEAR SI ES NECESARIO
 
         if (sigueMoviendo) {
             this.mover(dir, tablero);
