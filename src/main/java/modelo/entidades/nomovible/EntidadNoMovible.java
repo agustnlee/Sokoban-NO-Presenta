@@ -5,7 +5,7 @@ import modelo.entidades.movible.EntidadMovible;
 
 public interface EntidadNoMovible extends EntidadVisual {
     boolean recibirEntidadMovible(EntidadMovible e);
-    void efectoAlEntrar(EntidadMovible e);
+    boolean efectoAlEntrar(EntidadMovible e);
     default void saleEntidadMovible() { }
     
     default boolean alterarCandado() {

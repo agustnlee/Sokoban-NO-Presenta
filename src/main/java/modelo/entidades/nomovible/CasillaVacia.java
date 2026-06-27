@@ -14,8 +14,9 @@ public class CasillaVacia implements EntidadNoMovible {
     }
 
     @Override
-    public void efectoAlEntrar(EntidadMovible entidad) {
+    public boolean efectoAlEntrar(EntidadMovible entidad) {
         entidad.setComportamientoMovible(new MovimientoNormal());
+        return false;
     }
 
     @Override

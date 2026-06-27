@@ -2,61 +2,55 @@ package modelo.entidades.nomovible;
 
 import modelo.entidades.TipoEntidad;
 import modelo.entidades.movible.EntidadMovible;
+import modelo.entidades.movible.strategy.entidadmovible.MovimientoNormal;
 import modelo.entidades.nomovible.observer.PublicadorMuro;
 
 public class CasillaCandado implements EntidadNoMovible {
     
-    private PublicadorMuro publicador;
+    private PublicadorMuro publicadorMuro;
     private boolean llaveInsertada;
 
-    public CasillaCandado(PublicadorMuro publicador) {
-        this.publicador = publicador;
-        this.llaveInsertada = false;
-    }
-
     public CasillaCandado() {
-        this.publicador = null;
+        this.publicadorMuro = null;
         this.llaveInsertada = false;
     }
 
-    public void setPublicador(PublicadorMuro publicador) {
-        this.publicador = publicador;
+    public void setPublicadorMuro(PublicadorMuro publicador) {
+        this.publicadorMuro = publicador;
     }
 
     @Override
     public boolean recibirEntidadMovible(EntidadMovible e) {
-        return true; // Siempre se puede empujar algo hacia el candado
+        return true; 
     }
 
     @Override
-    public void efectoAlEntrar(EntidadMovible e) {
-        // Pseudo-código: if (e.esLlaveCorrecta()) {
-        //this.llaveInsertada = true;
-        //this.publicador.notificarSubscriptores(this.llaveInsertada); // Envía 'true'
-        // }
+    public boolean efectoAlEntrar(EntidadMovible e) {
+        e.setComportamientoMovible(new MovimientoNormal());
+        return false;
     }
 
     @Override
     public void saleEntidadMovible() {
-        // Si el jugador hace Undo, la llave sale de la casilla.
-        // Hay que volver a cerrar los muros.
         if (this.llaveInsertada) {
             this.llaveInsertada = false;
-            this.publicador.notificarSubscriptores(this.llaveInsertada); // Envía 'false'
+            this.publicadorMuro.notificarSubscriptores(this.llaveInsertada); 
         }
     }
 
     @Override
     public boolean alterarCandado() { 
         this.llaveInsertada = true;
-        this.publicador.notificarSubscriptores(this.llaveInsertada); // Envía 'true'
-        return this.llaveInsertada; // Retorna el nuevo estado del candado (true si se insertó la llave)
+        this.publicadorMuro.notificarSubscriptores(this.llaveInsertada); 
+        return this.llaveInsertada; 
     }
-
-    @Override
-    public boolean alterarDestino() {
-        // Descripcion: Sólo override CasillaCandado
-        return false;
+    public void restaurarLlaveInsertada(boolean estado) {
+        this.llaveInsertada = estado;
+        publicadorMuro.notificarSubscriptores(estado);
+    }
+ 
+    public boolean getLlaveInsertada() {
+        return llaveInsertada;
     }
 
     @Override
