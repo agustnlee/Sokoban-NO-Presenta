@@ -1,6 +1,5 @@
 package modelo.entidades.nomovible;
 
-import modelo.entidades.Tablero;
 import modelo.entidades.TipoEntidad;
 import modelo.entidades.movible.EntidadMovible;
 import modelo.entidades.movible.strategy.entidadmovible.MovimientoNormal;

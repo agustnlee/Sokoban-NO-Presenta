@@ -30,7 +30,7 @@ public abstract class EntidadMovible {
             return false;
         }
 
-        if (tablero.hayMovible(destino)) {
+        if (tablero.hayMovible(destino)) { // propagacion de empuje
             return tablero.getMovible(destino).recibirEmpuje(dir, tablero, this);
         }
 
@@ -41,7 +41,13 @@ public abstract class EntidadMovible {
 
         tablero.getNoMovible(this.posicion).saleEntidadMovible();
         tablero.moverEntidad(this, destino);
-        casillaDestino.efectoAlEntrar(this); // efecto aplicado
+        boolean sigueMoviendo = casillaDestino.efectoAlEntrar(this); // efecto aplicado
+        //this.reaccionarLlegada(tablero); TODO: CHQUEAR SI ES NECESARIO
+
+        if (sigueMoviendo) {
+            this.mover(dir, tablero);
+        }
+        
         return true;
     }
 
