@@ -5,9 +5,7 @@ import modelo.entidades.movible.EntidadMovible;
 
 public class Pared implements EntidadNoMovible {
 
-    public Pared() { 
-        
-    }
+    public Pared() {  }
 
     @Override
     public boolean recibirEntidadMovible(EntidadMovible e) {
@@ -15,24 +13,8 @@ public class Pared implements EntidadNoMovible {
     }
 
     @Override
-    public void efectoAlEntrar(EntidadMovible e) {
+    public void efectoAlEntrar(EntidadMovible e) { }
 
-     }
-
-    @Override
-    public void saleEntidadMovible() { 
-
-    }
-
-    @Override
-    public boolean alterarCandado() {
-        return false; // Una pared no puede alterar un candado
-    }
-
-    @Override
-    public boolean alterarDestino() {
-        return false; // Una pared no puede alterar un destino
-    }   
     @Override
     public TipoEntidad getTipoEntidad() {
         return TipoEntidad.PARED;
