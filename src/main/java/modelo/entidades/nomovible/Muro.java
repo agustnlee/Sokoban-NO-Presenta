@@ -2,6 +2,7 @@ package modelo.entidades.nomovible;
 
 import modelo.entidades.TipoEntidad;
 import modelo.entidades.movible.EntidadMovible;
+import modelo.entidades.movible.strategy.entidadmovible.MovimientoNormal;
 import modelo.entidades.nomovible.observer.SubscriptorMuro;
 import modelo.entidades.nomovible.state.EstadoMuro;
 import modelo.entidades.nomovible.state.MuroCerrado;
@@ -27,9 +28,9 @@ public class Muro implements EntidadNoMovible, SubscriptorMuro {
     }
 
     @Override
-    public void efectoAlEntrar(EntidadMovible e) {
-        // Como el muro abierto es funcionalmente idéntico a una casilla vacía,
-        // no tiene un efecto special sobre la entidad al entrar.
+    public boolean efectoAlEntrar(EntidadMovible e) {
+        e.setComportamientoMovible(new MovimientoNormal());
+        return false;
     }
 
     @Override

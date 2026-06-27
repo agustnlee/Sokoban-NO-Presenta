@@ -2,6 +2,7 @@ package modelo.entidades.nomovible;
 
 import modelo.entidades.TipoEntidad;
 import modelo.entidades.movible.EntidadMovible;
+import modelo.entidades.movible.strategy.entidadmovible.MovimientoNormal;
 import modelo.entidades.nomovible.observer.PublicadorMuro;
 
 public class CasillaCandado implements EntidadNoMovible {
@@ -29,11 +30,13 @@ public class CasillaCandado implements EntidadNoMovible {
     }
 
     @Override
-    public void efectoAlEntrar(EntidadMovible e) {
+    public boolean efectoAlEntrar(EntidadMovible e) {
         // Pseudo-código: if (e.esLlaveCorrecta()) {
         //this.llaveInsertada = true;
         //this.publicador.notificarSubscriptores(this.llaveInsertada); // Envía 'true'
         // }
+        e.setComportamientoMovible(new MovimientoNormal());
+        return false;
     }
 
     @Override

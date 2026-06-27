@@ -13,7 +13,9 @@ public class Pared implements EntidadNoMovible {
     }
 
     @Override
-    public void efectoAlEntrar(EntidadMovible e) { }
+    public boolean efectoAlEntrar(EntidadMovible e) {
+        return false;
+     }
 
     @Override
     public TipoEntidad getTipoEntidad() {

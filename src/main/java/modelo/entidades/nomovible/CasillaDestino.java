@@ -16,8 +16,9 @@ public class CasillaDestino implements EntidadNoMovible {
     }
 
     @Override
-    public void efectoAlEntrar(EntidadMovible entidad) {
-        entidad.setComportamientoMovible(new MovimientoNormal());   
+    public boolean efectoAlEntrar(EntidadMovible e) {
+        e.setComportamientoMovible(new MovimientoNormal());  
+        return false; 
     }
 
     @Override

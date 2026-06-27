@@ -1,5 +1,5 @@
 package modelo.entidades.movible.strategy.entidadmovible;
 
-public class MovimientoResbaladizo {
+public class MovimientoResbaladizo implements ComportamientoEntidadMovible {
     
 }
