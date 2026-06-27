@@ -1,5 +1,12 @@
 package modelo.entidades.movible.strategy.caja;
 
-public class EstrategiaLlave {
+import modelo.entidades.TipoEntidad;
+
+public class EstrategiaLlave implements ComportamientoCaja {
+
+    @Override
+    public TipoEntidad getTipoEntidad() {
+        return TipoEntidad.CAJA_LLAVE;
+    }
     
 }
