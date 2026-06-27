@@ -6,25 +6,19 @@ import modelo.entidades.nomovible.EntidadNoMovible;
 
 public class Tablero {
 
-    // Constantes que definen los límites estructurales inmutables del nivel
-    private final int FILAS = 5;
-    private final int COLUMNAS = 10;
-
-    // Matriz que representa el terreno estático del mapa
+    private final int filaMax;
+    private final int columnaMax;
     private EntidadNoMovible[][] capaNoMovible;
     private EntidadMovible[][]   capaMovible;
-
     private Jugador jugador;
 
     public Tablero() {
-        this.capaNoMovible = new EntidadNoMovible[FILAS][COLUMNAS];
-        this.capaMovible = new EntidadMovible[FILAS][COLUMNAS];
+        this(DimensionTablero.ESTANDAR.getFilas(), DimensionTablero.ESTANDAR.getColumnas());
     }
-    
+
     public Tablero(int filas, int columnas) {
-        if (filas != FILAS || columnas != COLUMNAS) {
-            throw new IllegalArgumentException("Las dimensiones deben ser " + FILAS + "x" + COLUMNAS);
-        }
+        this.filaMax = filas;
+        this.columnaMax = columnas;
         this.capaNoMovible = new EntidadNoMovible[filas][columnas];
         this.capaMovible = new EntidadMovible[filas][columnas];
     }
@@ -42,7 +36,7 @@ public class Tablero {
     }
 
     public boolean dentroDelTablero(Coordenada c) {
-        return c.getFila() >= 0 && c.getFila() < FILAS && c.getColumna() >= 0 && c.getColumna() < COLUMNAS;
+        return c.getFila() >= 0 && c.getFila() < filaMax && c.getColumna() >= 0 && c.getColumna() < columnaMax;
     }
 
     public void colocarMovible(EntidadMovible e, Coordenada c) {
@@ -61,11 +55,11 @@ public class Tablero {
     }
 
     public int getFilaMax() {
-        return FILAS;
+        return filaMax;
     }
 
     public int getColumnaMax() {
-        return COLUMNAS;
+        return columnaMax;
     }
 
     public void setJugador(Jugador j) {
