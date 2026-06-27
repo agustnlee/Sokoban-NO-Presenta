@@ -5,8 +5,8 @@ import modelo.entidades.nomovible.EntidadNoMovible;
 public class Tablero {
 
     // Constantes que definen los límites estructurales inmutables del nivel
-    public static final int FILAS = 5;
-    public static final int COLUMNAS = 10;
+    private static final int FILAS = 5;
+    private static final int COLUMNAS = 10;
 
     // Matriz que representa el terreno estático del mapa
     private EntidadNoMovible[][] capaNoMovible;
