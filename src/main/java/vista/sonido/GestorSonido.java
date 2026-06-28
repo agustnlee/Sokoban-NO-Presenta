@@ -1,5 +1,4 @@
-package modelo.sonido;
+package vista.sonido;
 
 public class GestorSonido {
-    
 }
