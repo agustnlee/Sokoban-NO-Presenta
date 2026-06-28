@@ -81,4 +81,14 @@ La dificultad presenta una curva progresiva diseñada para enseñar las mecánic
 * **💀 Derrota:** El nivel se pierde inmediatamente si el contador de resistencia de una Caja Frágil llega a cero y la caja se destruye.
 * **💯 Puntaje:** Durante la partida, el HUD mostrará tu cantidad de movimientos y empujes. Al finalizar cada nivel, un sistema interno calculará tu puntaje final evaluando la cantidad de movimientos, los empujes efectuados, el tiempo transcurrido y la penalización por uso del undo.
 
+---
+
+## 👥 Equipo "NO Presenta"
+
+Este proyecto fue planificado y desarrollado mediante división de módulos por el siguiente equipo:
+
+* **Agustín:** Project Management, Diseño de niveles, Estética visual y Soporte de entidades.
+* **Tomás Augusto Romero:** Desarrollo del motor físico y Entidades principales (Cajas, Casillas, Tablero, Escalera, Jugador).
+* **Facundo:** Interfaz de usuario (HUD), Menú de inicio, Diseño de Sonidos y Proofreading.
+
 ¡Diviértete planificando tus movimientos con cuidado y optimiza tu estrategia para resolver el caso con el puntaje más alto!
