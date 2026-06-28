@@ -43,7 +43,12 @@ public class Puntaje {
     }
 
     private void recalcularPuntaje() {
-        int bruto = PUNTAJE_BASE - (movimientos * COSTO_MOVIMIENTO) - (undos * COSTO_UNDO);
+        int bruto = getPuntajeBruto();
         this.puntaje = Math.max(0, bruto);
     }
+
+    public int getPuntajeBruto() {
+        return PUNTAJE_BASE - (movimientos * COSTO_MOVIMIENTO) - (undos * COSTO_UNDO);
+    }
+
 }
