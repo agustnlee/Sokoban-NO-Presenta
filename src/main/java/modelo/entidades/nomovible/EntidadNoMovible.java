@@ -1,7 +1,6 @@
 package modelo.entidades.nomovible;
 
 import modelo.entidades.EntidadVisual;
-import modelo.entidades.TipoEntidad;
 import modelo.entidades.movible.EntidadMovible;
 
 public interface EntidadNoMovible extends EntidadVisual {
@@ -15,6 +14,4 @@ public interface EntidadNoMovible extends EntidadVisual {
     default boolean alterarDestino() {
         return false;
     }
-    
-    TipoEntidad getTipoEntidad();
 }

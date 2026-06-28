@@ -1,5 +1,123 @@
 package controlador;
 
+import modelo.dto.ConstructorDTOResultado;
+import modelo.dto.DTOResultado;
+import modelo.entidades.Coordenada;
+import modelo.entidades.Direccion;
+import modelo.entidades.Tablero;
+import modelo.entidades.movible.EntidadMovible;
+import modelo.historial.EstadoEntidadMovible;
+import modelo.entidades.nomovible.CasillaCandado;
+import modelo.historial.EstadoCandado;
+import modelo.historial.GestorHistorial;
+import modelo.historial.Memento;
+import modelo.metricas.CondicionDerrota;
+import modelo.metricas.CondicionVictoria;
+import modelo.metricas.Puntaje;
+import modelo.persistencia.GestorArchivo;
+import vista.MainVista;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ControladorJuego {
-    
+
+    private Tablero tablero;
+    private final GestorHistorial historial;
+    private final CondicionVictoria condicionVictoria;
+    private final CondicionDerrota condicionDerrota;
+    private final Puntaje puntaje;
+    private final ConstructorDTOResultado constructorDTO;
+    private final MainVista mainVista;
+    private int nivel;
+
+    public ControladorJuego(MainVista mainVista) {
+        this.mainVista = mainVista;
+        this.historial = new GestorHistorial();
+        this.condicionVictoria = new CondicionVictoria();
+        this.condicionDerrota = new CondicionDerrota();
+        this.puntaje = new Puntaje();
+        this.constructorDTO = new ConstructorDTOResultado();
+    }
+
+    public void cargarNivel(int nivel) {
+        this.nivel = nivel;
+        this.tablero = GestorArchivo.getInstancia().cargarMapa(nivel);
+        this.puntaje.resetPuntaje();
+        historial.guardar(crearMemento());
+    }
+
+    public DTOResultado mover(Direccion dir) {
+        tablero.getJugador().mover(dir, tablero);
+
+        puntaje.registrarMovimiento();
+        historial.guardar(crearMemento());
+
+        return evaluarYConstruir();
+    }
+
+    public DTOResultado undo() {
+        Memento objetivo = historial.deshacer();
+        if (objetivo != null) {
+            objetivo.restaurar();
+        }
+
+        puntaje.registrarUndo();
+
+        return evaluarYConstruir();
+    }
+
+    private DTOResultado evaluarYConstruir() {
+        boolean victoria = condicionVictoria.evaluar(tablero);
+        boolean derrota = condicionDerrota.evaluar(tablero);
+
+        if (victoria && puntaje.getPuntajeBruto() < 0) {
+            victoria = false;
+            derrota = true;
+        }
+
+        DTOResultado resultado = constructorDTO.construir(tablero, victoria, derrota, puntaje);
+
+        if (victoria) {
+            mostrarVictoria();
+        } else if (derrota) {
+            mostrarDerrota();
+        }
+
+        return resultado;
+    }
+
+    private Memento crearMemento() {
+        List<EstadoEntidadMovible> estados = new ArrayList<>();
+
+        for (int fila = 0; fila < tablero.getFilaMax(); fila++) {
+            for (int columna = 0; columna < tablero.getColumnaMax(); columna++) {
+                EntidadMovible entidad = tablero.getMovible(new Coordenada(fila, columna));
+                if (entidad != null) {
+                    estados.add(entidad.crearEstado());
+                }
+            }
+        }
+
+        CasillaCandado candado = tablero.getCandado();
+        EstadoCandado estadoCandado = (candado != null)
+                ? new EstadoCandado(candado, candado.getLlaveInsertada())
+                : null;
+
+        return new Memento(estados, estadoCandado);
+    }
+
+    public void comenzarJuego() {
+        mostrarInicio();
+    }
+
+    public void reiniciarJuego() {
+        cargarNivel(this.nivel);
+    }
+
+    public void mostrarInicio() { mainVista.mostrarInicio(); }
+    public void mostrarNiveles() { mainVista.mostrarNiveles(); }
+    public void mostrarPausa() { mainVista.mostrarPausa(); }
+    public void mostrarVictoria() { mainVista.mostrarVictoria(); }
+    public void mostrarDerrota() { mainVista.mostrarDerrota(); }
 }
