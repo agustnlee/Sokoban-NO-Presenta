@@ -8,7 +8,10 @@ public class EstrategiaLlave implements ComportamientoCaja {
     
     @Override
     public void reaccionarLlegada(Caja caja, Tablero tablero) {
-        tablero.getNoMovible(caja.getPosicion()).alterarCandado();
+        boolean activado = tablero.getNoMovible(caja.getPosicion()).alterarCandado();
+        if (activado) {
+            caja.alterarBloqueada(true);
+        }
     }
  
     @Override
