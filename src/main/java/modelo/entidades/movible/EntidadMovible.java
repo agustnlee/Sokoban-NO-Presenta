@@ -3,13 +3,15 @@ package modelo.entidades.movible;
 import modelo.entidades.Coordenada;
 import modelo.entidades.Direccion;
 import modelo.entidades.Tablero;
+import modelo.entidades.TipoEntidad;
 import modelo.entidades.movible.strategy.entidadmovible.ComportamientoEntidadMovible;
 import modelo.entidades.movible.strategy.entidadmovible.MovimientoNormal;
 import modelo.entidades.nomovible.EntidadNoMovible;
 import modelo.historial.EstadoEntidadMovible;
+import modelo.entidades.EntidadVisual;
 
 
-public abstract class EntidadMovible {
+public abstract class EntidadMovible implements EntidadVisual {
 
     private Coordenada posicion;
     private ComportamientoEntidadMovible comportamientoMovible;
@@ -95,4 +97,5 @@ public abstract class EntidadMovible {
         this.comportamientoMovible = c;
     }
 
+    public abstract TipoEntidad getTipoEntidad();
 }

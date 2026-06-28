@@ -1,5 +1,6 @@
 package modelo.entidades.movible;
 
+import modelo.entidades.TipoEntidad;
 import modelo.entidades.movible.strategy.caja.ComportamientoCaja;
 
 public abstract class CajaAbstracta extends EntidadMovible {
@@ -26,5 +27,10 @@ public abstract class CajaAbstracta extends EntidadMovible {
     @Override
     public boolean estaEnEstadoDerrota() {
         return estrategia.estaEnEstadoDerrota();
+    }
+
+    @Override
+    public TipoEntidad getTipoEntidad() {
+        return TipoEntidad.CAJA;
     }
 }
