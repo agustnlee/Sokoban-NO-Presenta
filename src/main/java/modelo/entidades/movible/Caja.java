@@ -2,6 +2,7 @@ package modelo.entidades.movible;
 
 import modelo.entidades.Direccion;
 import modelo.entidades.Tablero;
+import modelo.historial.EstadoCaja;
 
 public class Caja extends CajaAbstracta {
 
@@ -18,6 +19,10 @@ public class Caja extends CajaAbstracta {
         }
         return super.mover(dir, tablero);
     }
+    @Override
+    public EstadoCaja crearEstado() {
+        return new EstadoCaja(this, this.getPosicion(), this.bloqueada, this.getEmpujesRestantes());
+    }
 
     @Override
     public void reaccionarLlegada(Tablero tablero) {
@@ -31,5 +36,13 @@ public class Caja extends CajaAbstracta {
 
     public void alterarBloqueada(boolean estado) {
         this.bloqueada = estado;
+    }
+
+    public void restaurarEmpujesRestantes(int restantes) {
+        estrategia.restaurarEmpujesRestantes(restantes);
+    }
+
+    public int getEmpujesRestantes() {
+        return estrategia.getEmpujesRestantes();
     }
 }

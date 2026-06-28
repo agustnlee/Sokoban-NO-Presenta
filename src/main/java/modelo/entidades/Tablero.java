@@ -2,6 +2,7 @@ package modelo.entidades;
 
 import modelo.entidades.movible.EntidadMovible;
 import modelo.entidades.movible.Jugador;
+import modelo.entidades.nomovible.CasillaCandado;
 import modelo.entidades.nomovible.EntidadNoMovible;
 
 public class Tablero {
@@ -11,6 +12,7 @@ public class Tablero {
     private EntidadNoMovible[][] capaNoMovible;
     private EntidadMovible[][]   capaMovible;
     private Jugador jugador;
+    private CasillaCandado candado;
 
     public Tablero() {
         this(DimensionTablero.ESTANDAR.getFilas(), DimensionTablero.ESTANDAR.getColumnas());
@@ -68,6 +70,13 @@ public class Tablero {
 
     public Jugador getJugador() {
         return jugador;
+    }
+
+    public void setCandado(CasillaCandado c) { 
+        this.candado = c; 
+    }
+    public CasillaCandado getCandado() {
+        return candado; 
     }
 
 }

@@ -6,6 +6,7 @@ import modelo.entidades.Tablero;
 import modelo.entidades.movible.strategy.entidadmovible.ComportamientoEntidadMovible;
 import modelo.entidades.movible.strategy.entidadmovible.MovimientoNormal;
 import modelo.entidades.nomovible.EntidadNoMovible;
+import modelo.historial.EstadoEntidadMovible;
 
 
 public abstract class EntidadMovible {
@@ -64,6 +65,10 @@ public abstract class EntidadMovible {
 
 
     public void reaccionarLlegada(Tablero tablero) { // defecto no hace nada
+    }
+
+    public EstadoEntidadMovible crearEstado() {
+        return new EstadoEntidadMovible(this, this.getPosicion());
     }
 
     public boolean cuentaParaVictoria() {

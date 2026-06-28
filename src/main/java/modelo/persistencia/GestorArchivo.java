@@ -130,6 +130,7 @@ public class GestorArchivo {
         }
  
         vincularMurosAlCandado(candadoDelNivel, murosDelNivel);
+        tablero.setCandado(candadoDelNivel);
     }
  
     private void vincularMurosAlCandado(CasillaCandado candado, List<Muro> muros) {
