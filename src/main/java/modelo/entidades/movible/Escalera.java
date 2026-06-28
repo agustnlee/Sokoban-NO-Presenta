@@ -3,6 +3,7 @@ package modelo.entidades.movible;
 import modelo.entidades.Coordenada;
 import modelo.entidades.Direccion;
 import modelo.entidades.Tablero;
+import modelo.entidades.TipoEntidad;
 import modelo.entidades.nomovible.EntidadNoMovible;
 
  
@@ -93,5 +94,10 @@ public class Escalera extends EntidadMovible {
         }
  
         return false; 
+    }
+
+    @Override
+    public TipoEntidad getTipoEntidad() {
+        return TipoEntidad.ESCALERA;
     }
 }

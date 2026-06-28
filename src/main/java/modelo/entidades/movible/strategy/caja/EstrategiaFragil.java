@@ -13,14 +13,7 @@ public class EstrategiaFragil implements ComportamientoCaja {
     public EstrategiaFragil() {
         this.empujesRestantes = EMPUJES_POR_DEFECTO;
     }
-    public int getEmpujesRestantes() {
-        return empujesRestantes;
-    }
- 
-    public void setEmpujesRestantes(int restantes) {
-        this.empujesRestantes = restantes;
-    }
- 
+
     @Override
     public void reaccionarLlegada(Caja caja, Tablero tablero) {
         if (empujesRestantes > 0) {
@@ -42,7 +35,15 @@ public class EstrategiaFragil implements ComportamientoCaja {
     public boolean estaEnEstadoDerrota() {
         return empujesRestantes <= 0;
     }
+    @Override
+    public int getEmpujesRestantes() {
+        return this.empujesRestantes;
+    }
 
+    @Override
+    public void restaurarEmpujesRestantes(int restantes) {
+        this.empujesRestantes = restantes;
+    }
     @Override
     public TipoEntidad getTipoEntidad() {
         return TipoEntidad.CAJA;

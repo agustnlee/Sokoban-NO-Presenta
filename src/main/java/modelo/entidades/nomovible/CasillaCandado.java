@@ -4,6 +4,7 @@ import modelo.entidades.TipoEntidad;
 import modelo.entidades.movible.EntidadMovible;
 import modelo.entidades.movible.strategy.entidadmovible.MovimientoNormal;
 import modelo.entidades.nomovible.observer.PublicadorMuro;
+import modelo.entidades.nomovible.observer.SubscriptorMuro;
 
 public class CasillaCandado implements EntidadNoMovible {
     
@@ -11,12 +12,8 @@ public class CasillaCandado implements EntidadNoMovible {
     private boolean llaveInsertada;
 
     public CasillaCandado() {
-        this.publicadorMuro = null;
+        this.publicadorMuro = new PublicadorMuro();
         this.llaveInsertada = false;
-    }
-
-    public void setPublicadorMuro(PublicadorMuro publicador) {
-        this.publicadorMuro = publicador;
     }
 
     @Override
@@ -51,6 +48,14 @@ public class CasillaCandado implements EntidadNoMovible {
  
     public boolean getLlaveInsertada() {
         return llaveInsertada;
+    }
+    
+    public void suscribir(SubscriptorMuro s) {
+        this.publicadorMuro.suscribir(s); 
+    }
+
+    public void desuscribir(SubscriptorMuro s) {
+        this.publicadorMuro.desuscribir(s);
     }
 
     @Override

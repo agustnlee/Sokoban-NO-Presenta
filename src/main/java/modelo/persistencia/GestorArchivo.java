@@ -1,135 +1,176 @@
 package modelo.persistencia;
 
 import modelo.entidades.movible.EntidadMovible;
+import modelo.entidades.movible.Jugador;
+import modelo.entidades.nomovible.CasillaCandado;
 import modelo.entidades.nomovible.EntidadNoMovible;
+import modelo.entidades.nomovible.Muro;
 import modelo.factory.nomovible.*;
 import modelo.factory.movible.*;
 import modelo.entidades.Tablero;
 import modelo.entidades.Coordenada;
+import modelo.entidades.DimensionTablero;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+ 
+/**
+ * Siglas no movibles: PA Pared, VA Vacia, DE Destino, RE Resbaladiza,
+ *                      CA Candado, MU Muro
+ * Siglas movibles:    JU Jugador, CB CajaNormal, CF CajaFragil, CL CajaLlave,
+ *                      ES Escalera, NA (ninguna entidad movible en esa celda)
+ * 
+ * EJEMPLO
+PA PA PA PA PA PA PA PA PA PA
+PA VA VA VA DE VA VA VA MU PA
+PA VA VA VA VA VA VA CA MU PA
+PA VA VA VA DE VA VA VA MU PA
+PA PA PA PA PA PA PA PA PA PA
+---
+NA NA NA NA NA NA NA NA NA NA
+NA JU NA CB NA NA NA NA NA NA
+NA NA NA CL NA NA NA NA NA NA
+NA NA NA NA NA NA NA NA NA NA
+NA NA NA NA NA NA NA NA NA NA
+ */
 
 public class GestorArchivo {
+ 
+    private static final String SIGLA_JUGADOR = "JU";
+    private static final String SIGLA_NADA = "NA";
+    private static final String SIGLA_MURO = "MU";
+    private static final String SIGLA_CANDADO = "CA";
+    private static final String SEPARADOR = "---";
+ 
     private static GestorArchivo instancia;
-
-    private Map<String, CreadorNoMovible> creadoresNoMovibles;
-    private Map<String, CreadorMovible> creadoresMovibles;
-
+ 
+    private final Map<String, CreadorMovible> creadoresMovibles;
+    private final Map<String, CreadorNoMovible> creadoresNoMovibles;
+ 
     private GestorArchivo() {
-        creadoresNoMovibles = new HashMap<>();
         creadoresMovibles = new HashMap<>();
+        creadoresMovibles.put(SIGLA_JUGADOR, new CreadorJugador());
+        creadoresMovibles.put("CB", new CreadorCajaNormal());
+        creadoresMovibles.put("CF", new CreadorCajaFragil());
+        creadoresMovibles.put("CL", new CreadorCajaLlave());
+        creadoresMovibles.put("ES", new CreadorEscalera());
+ 
+        creadoresNoMovibles = new HashMap<>();
+        creadoresNoMovibles.put("PA", new CreadorPared());
+        creadoresNoMovibles.put("VA", new CreadorCasillaVacia());
+        creadoresNoMovibles.put("DE", new CreadorCasillaDestino());
+        creadoresNoMovibles.put("RE", new CreadorCasillaResbaladiza());
+        creadoresNoMovibles.put(SIGLA_CANDADO, new CreadorCasillaCandado());
+        creadoresNoMovibles.put(SIGLA_MURO, new CreadorMuro());
     }
-
+ 
     public static GestorArchivo getInstancia() {
         if (instancia == null) {
             instancia = new GestorArchivo();
         }
         return instancia;
     }
-    // --- INICIALIZACIÓN DE FÁBRICAS ---
-    public void inicializarCreadores() {
-        // Mapeo del texto del .txt directo a su fábrica creadora correspondiente
-        
-        // Terrenos (No Movibles)
-        this.creadoresNoMovibles.put("P", (CreadorNoMovible) new CreadorPared());
-        this.creadoresNoMovibles.put("CV", (CreadorNoMovible) new CreadorCasillaVacia());
-        this.creadoresNoMovibles.put("CD", (CreadorNoMovible) new CreadorCasillaDestino());
-        this.creadoresNoMovibles.put("CR", (CreadorNoMovible) new CreadorCasillaResbaladiza());
-        this.creadoresNoMovibles.put("M1", (CreadorNoMovible) new CreadorMuro()); 
-        this.creadoresNoMovibles.put("CL1", (CreadorNoMovible) new CreadorCasillaCandado()); 
-        
-        // Entidades (Movibles) - Se agregarán cuando desarrollen esa rama
-        // this.creadoresMovibles.put("J", new ConcreteCreadorJugador());
-        // this.creadoresMovibles.put("CN", new ConcreteCreadorCajaNormal());
-        // ...
-        
-    }
-    public Tablero cargarMapa(int nivel){
-        // Aquí se implementaría la lógica para cargar el mapa desde un archivo o recurso.
-        // El nivel corresponde al número de nivel que queremos cargar.
-        
-        // 1. Definir la ruta del archivo (ajusta la carpeta según tu proyecto)
-        String rutaArchivo = "src/main/resources/niveles/nivel_" + nivel + ".txt";
-        
-        Tablero  tablero = new Tablero(); 
-
-        // 2. Lectura segura del archivo (el try-with-resources cierra el archivo automáticamente)
-        try (java.io.BufferedReader br = new java.io.BufferedReader(new java.io.FileReader(rutaArchivo))) {
-            
-            List<String> lineas = br.lines().toList();
-            construirNoMovibles(lineas, tablero);
-            construirMovibles(lineas, tablero);
-
-        } catch (java.io.IOException e) {
-            System.err.println("Error al cargar el archivo del nivel " + nivel + ": " + e.getMessage());
+ 
+    public Tablero cargarMapa(int nivel) {
+        List<String> lineas = leerArchivo("niveles/nivel" + nivel + ".txt");
+ 
+        int filas = DimensionTablero.ESTANDAR.getFilas();
+        int lineasEsperadas = filas * 2 + 1;
+ 
+        if (lineas.size() < lineasEsperadas) {
+            throw new RuntimeException("El archivo del nivel " + nivel + " tiene " + lineas.size()
+                    + " lineas, se esperaban al menos " + lineasEsperadas);
         }
-
-        // 3. Retornamos el Tablero (o la clase Partida) inicializado con la grilla ya construida
+ 
+        Tablero tablero = new Tablero(); 
+ 
+        List<String> lineasNoMovibles = lineas.subList(0, filas);
+        construirNoMovibles(lineasNoMovibles, tablero);
+ 
+        int indiceSeparador = filas;
+        if (!lineas.get(indiceSeparador).trim().equals(SEPARADOR)) {
+            throw new RuntimeException("Se esperaba la linea separadora '" + SEPARADOR
+                    + "' en la linea " + (indiceSeparador + 1));
+        }
+ 
+        int inicioMovibles = indiceSeparador + 1;
+        List<String> lineasMovibles = lineas.subList(inicioMovibles, inicioMovibles + filas);
+        construirMovibles(lineasMovibles, tablero);
+ 
         return tablero;
-
-
     }
-
+ 
     private void construirNoMovibles(List<String> lineas, Tablero tablero) {
-        // Este método se encargaría de recorrer las líneas leídas del archivo y construir
-        // las entidades no movibles en el tablero usando las fábricas correspondientes.
-            String linea;
-            int fila = 0;
-            // Leemos línea por línea hasta completar las 5 filas
-            while ((linea = lineas.get(fila)) != null && fila < 5) {
-                
-                // Separamos los caracteres de la línea (asumiendo que en el txt usas comas, ej: "P,CV,M1,CV...")
-                String[] simbolos = linea.split(",");
-
-                for (int col = 0; col < 10 && col < simbolos.length; col++) {
-                    // Limpiamos los espacios en blanco del string leído
-                    String simboloLeido = simbolos[col].trim();
-                    Coordenada coordenada = new Coordenada(fila, col);
-
-                    // --- FACTORY METHOD ---
-                    // Buscamos la fábrica correspondiente en el diccionario
-                    var fabricaNoMovible = this.creadoresNoMovibles.get(simboloLeido);
-
-                    if (fabricaNoMovible != null) {
-                        // Le pedimos a la fábrica que instancie el objeto y lo guardamos en la coordenada
-                        tablero.colocarNoMovible((EntidadNoMovible) fabricaNoMovible.crear(), coordenada);
-                    } else {
-                        // Manejo de errores en caso de leer un símbolo inválido o vacío en el txt
-                        // Por defecto, si hay error, podemos poner una casilla vacía para que no explote el juego
-                        tablero.colocarNoMovible((EntidadNoMovible) this.creadoresNoMovibles.get("CV").crear(), coordenada);
-                    }
+        CasillaCandado candadoDelNivel = null;
+        List<Muro> murosDelNivel = new ArrayList<>();
+ 
+        for (int fila = 0; fila < lineas.size(); fila++) {
+            String[] siglas = lineas.get(fila).trim().split("\\s+");
+            for (int columna = 0; columna < siglas.length; columna++) {
+                String sigla = siglas[columna];
+                CreadorNoMovible creador = creadoresNoMovibles.get(sigla);
+                if (creador == null) {
+                    throw new RuntimeException("Sigla de casilla desconocida: '" + sigla + "'");
                 }
-                fila++; 
+ 
+                EntidadNoMovible entidad = creador.crear();
+                tablero.colocarNoMovible(entidad, new Coordenada(fila, columna));
+
+                if (sigla.equals(SIGLA_MURO)) {
+                    murosDelNivel.add((Muro) entidad);
+                } else if (sigla.equals(SIGLA_CANDADO)) {
+                    candadoDelNivel = (CasillaCandado) entidad;
+                }
             }
+        }
+ 
+        vincularMurosAlCandado(candadoDelNivel, murosDelNivel);
+        tablero.setCandado(candadoDelNivel);
     }
-
+ 
+    private void vincularMurosAlCandado(CasillaCandado candado, List<Muro> muros) {
+        if (candado == null) {
+            return; 
+        }
+        for (Muro muro : muros) {
+            candado.suscribir(muro);
+        }
+    }
+ 
     private void construirMovibles(List<String> lineas, Tablero tablero) {
-        // Similar a construirNoMovibles, pero para la capa de entidades movibles.
-            String linea;
-            int fila = 0;
-            // Leemos línea por línea hasta completar las 5 filas
-            while ((linea = lineas.get(fila)) != null && fila < 5) {
-                
-                // Separamos los caracteres de la línea (asumiendo que en el txt usas comas, ej: "P,CV,M1,CV...")
-                String[] simbolos = linea.split(",");
-
-                for (int col = 0; col < 10 && col < simbolos.length; col++) {
-                    // Limpiamos los espacios en blanco del string leído
-                    String simboloLeido = simbolos[col].trim();
-                    Coordenada coordenada = new Coordenada(fila, col);
-
-                    // --- FACTORY METHOD ---
-                    // Buscamos la fábrica correspondiente en el diccionario
-                    var fabricaMovible = this.creadoresMovibles.get(simboloLeido);
-                    if (fabricaMovible != null) {
-                        tablero.colocarMovible((EntidadMovible) fabricaMovible.crear(), coordenada);
-                    } else {
-                        tablero.colocarMovible(null, coordenada); // No hay entidad movible en esta posición
-                    }
+        for (int fila = 0; fila < lineas.size(); fila++) {
+            String[] siglas = lineas.get(fila).trim().split("\\s+");
+            for (int columna = 0; columna < siglas.length; columna++) {
+                String sigla = siglas[columna];
+                if (sigla.equals(SIGLA_NADA)) {
+                    continue; 
                 }
-                fila++; 
-            }        
+ 
+                CreadorMovible creador = creadoresMovibles.get(sigla);
+                if (creador == null) {
+                    throw new RuntimeException("Sigla de entidad movible desconocida: '" + sigla + "'");
+                }
+ 
+                EntidadMovible entidad = creador.crear();
+                tablero.colocarMovible(entidad, new Coordenada(fila, columna));
+ 
+                if (sigla.equals(SIGLA_JUGADOR)) {
+                    tablero.setJugador((Jugador) entidad);
+                }
+            }
+        }
+    }
+ 
+    private List<String> leerArchivo(String ruta) {
+        try {
+            return Files.readAllLines(Paths.get(ruta));
+        } catch (IOException e) {
+            throw new RuntimeException("No se pudo leer el archivo de nivel: " + ruta, e);
+        }
     }
 }

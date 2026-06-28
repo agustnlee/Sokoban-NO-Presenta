@@ -8,5 +8,7 @@ public interface ComportamientoCaja {
     void reaccionarLlegada(Caja c, Tablero tablero);
     boolean cuentaParaVictoria();
     boolean estaEnEstadoDerrota();
-    TipoEntidad getTipoEntidad();
+    default int getEmpujesRestantes() { return -1; }
+    default void restaurarEmpujesRestantes(int restantes) { }
+    TipoEntidad getTipoEntidad();  
 }
