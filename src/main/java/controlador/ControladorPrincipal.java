@@ -15,7 +15,7 @@ public class ControladorPrincipal {
     private final ControladorPaginaJuego controladorPaginaJuego;
 
     public ControladorPrincipal() {
-        List<String> screenshots = null; // TODO: pasar patyh reales
+        List<String> screenshots = null; // TODO: pasar path reales
 
         this.mainVista = new MainVista(CANTIDAD_NIVELES, screenshots);
         this.controladorJuego = new ControladorJuego(mainVista);
