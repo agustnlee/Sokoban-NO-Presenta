@@ -15,7 +15,17 @@ public class ControladorPrincipal {
     private final ControladorPaginaJuego controladorPaginaJuego;
 
     public ControladorPrincipal() {
-        List<String> screenshots = null; // TODO: pasar path reales
+        List<String> screenshots = List.of(
+            "/imagenes/niveles/nivel1.png",
+            "/imagenes/niveles/nivel2.png",
+            "/imagenes/niveles/nivel3.png",
+            "/imagenes/niveles/nivel4.png",
+            "/imagenes/niveles/nivel5.png",
+            "/imagenes/niveles/nivel6.png",
+            "/imagenes/niveles/nivel7.png",
+            "/imagenes/niveles/nivel8.png",
+            "/imagenes/niveles/nivel9.png"
+        ); // TODO: path SCREENSHOT
 
         this.mainVista = new MainVista(CANTIDAD_NIVELES, screenshots);
         this.controladorJuego = new ControladorJuego(mainVista);
