@@ -46,11 +46,7 @@ public class OverlayDerrota extends OverlayOscuro {
     }
 
     
-    // publico 
-    /**
-     * Motivo de derrota a mostrar.
-     * Ej: "¡Caja frágil destruida!" o "Sin movimientos disponibles"
-     */
+ 
     public void setMotivo(String motivo) {
         lblMotivo.setText(motivo);
     }
@@ -58,8 +54,6 @@ public class OverlayDerrota extends OverlayOscuro {
     public void setOnReiniciar(Runnable r) { this.onReiniciar = r; }
     public void setOnMenu     (Runnable r) { this.onMenu      = r; }
 
-
-    // Privados
 
 
     private JPanel construirContenido() {
