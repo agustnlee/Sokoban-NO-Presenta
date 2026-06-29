@@ -24,7 +24,8 @@ public class ControladorPrincipal {
             "/imagenes/niveles/nivel6.png",
             "/imagenes/niveles/nivel7.png",
             "/imagenes/niveles/nivel8.png",
-            "/imagenes/niveles/nivel9.png"
+            "/imagenes/niveles/nivel9.png",
+            "/imagenes/niveles/nivel10.png"
         ); // TODO: path SCREENSHOT
 
         this.mainVista = new MainVista(CANTIDAD_NIVELES, screenshots);
