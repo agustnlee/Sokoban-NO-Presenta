@@ -17,32 +17,23 @@ public class OverlayPausa extends OverlayOscuro {
     private static final int ANCHO_BOTON = 200;
     private static final int ALTO_BOTON  = 80;
 
-    private final BotonImagen btnContinuar;
+    private final BotonImagen btnReanudar;
     private final BotonImagen btnReiniciar;
     private final BotonImagen btnMenu;
 
-    private Runnable onContinuar;
+    private Runnable onReanudar;
     private Runnable onReiniciar;
     private Runnable onMenu;
 
     public OverlayPausa(int ancho, int alto) {
         super(ancho, alto);
 
-        JPanel panel = construirPanel();
-        // Centrado en pantalla
+        btnReanudar  = crearBoton("reanudar");
+        btnReiniciar = crearBoton("reiniciar"); //TODO CHEQUEAR PATH
+        btnMenu      = crearBoton("menu");
+
         int panelAncho = 300;
         int panelAlto  = 400;
-        panel.setBounds(
-            (ancho - panelAncho) / 2,
-            (alto  - panelAlto)  / 2,
-            panelAncho,
-            panelAlto
-        );
-        add(panel);
-
-        btnContinuar = crearBoton("continuar");
-        btnReiniciar = crearBoton("reiniciar");
-        btnMenu      = crearBoton("menu");
 
         JPanel contenido = construirContenido();
         contenido.setBounds(
@@ -56,24 +47,9 @@ public class OverlayPausa extends OverlayOscuro {
         configurarListeners();
     }
 
-
-    // Callbacks
-
-    public void setOnContinuar(Runnable r) { this.onContinuar = r; }
+    public void setOnReanudar(Runnable r)  { this.onReanudar = r; }
     public void setOnReiniciar(Runnable r) { this.onReiniciar = r; }
-    public void setOnMenu     (Runnable r) { this.onMenu      = r; }
-
-
-    // Privados
-
-
-    private JPanel construirPanel() {
-        JPanel panel = new JPanel();
-        panel.setOpaque(true);
-        panel.setBackground(new Color(30, 30, 30, 200));
-        panel.setLayout(null);
-        return panel;
-    }
+    public void setOnMenu(Runnable r)      { this.onMenu = r; }
 
     private JPanel construirContenido() {
         JPanel panel = new JPanel();
@@ -85,14 +61,14 @@ public class OverlayPausa extends OverlayOscuro {
         titulo.setForeground(Color.WHITE);
         titulo.setAlignmentX(CENTER_ALIGNMENT);
 
-        btnContinuar.setAlignmentX(CENTER_ALIGNMENT);
+        btnReanudar.setAlignmentX(CENTER_ALIGNMENT);
         btnReiniciar.setAlignmentX(CENTER_ALIGNMENT);
         btnMenu.setAlignmentX(CENTER_ALIGNMENT);
 
         panel.add(Box.createVerticalGlue());
         panel.add(titulo);
         panel.add(Box.createVerticalStrut(30));
-        panel.add(btnContinuar);
+        panel.add(btnReanudar);
         panel.add(Box.createVerticalStrut(15));
         panel.add(btnReiniciar);
         panel.add(Box.createVerticalStrut(15));
@@ -104,7 +80,7 @@ public class OverlayPausa extends OverlayOscuro {
 
     private BotonImagen crearBoton(String nombre) {
         BotonImagen btn = new BotonImagen(
-            "/imagenes/ui/btn_" + nombre + ".png", // TODO: Cheuqear PATH IMAGEN
+            "/imagenes/ui/btn_" + nombre + ".png",
             "/imagenes/ui/btn_" + nombre + "_hover.png"
         );
         btn.setPreferredSize(new Dimension(ANCHO_BOTON, ALTO_BOTON));
@@ -114,9 +90,9 @@ public class OverlayPausa extends OverlayOscuro {
     }
 
     private void configurarListeners() {
-        btnContinuar.addMouseListener(new MouseAdapter() {
+        btnReanudar.addMouseListener(new MouseAdapter() {
             @Override public void mouseClicked(MouseEvent e) {
-                if (onContinuar != null) onContinuar.run();
+                if (onReanudar != null) onReanudar.run();
             }
         });
         btnReiniciar.addMouseListener(new MouseAdapter() {

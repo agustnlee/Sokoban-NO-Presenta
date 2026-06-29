@@ -40,11 +40,19 @@ public class ControladorJuego {
         this.constructorDTO = new ConstructorDTOResultado();
     }
 
-    public void cargarNivel(int nivel) {
+    public DTOResultado cargarNivel(int nivel) {
         this.nivel = nivel;
         this.tablero = GestorArchivo.getInstancia().cargarMapa(nivel);
         this.puntaje.resetPuntaje();
-        historial.guardar(crearMemento());
+
+        Memento inicial = crearMemento();
+        historial.guardar(inicial);
+
+        return constructorDTO.construir(tablero, false, false, puntaje);
+    }
+
+    public DTOResultado reiniciarJuego() {
+        return cargarNivel(this.nivel);
     }
 
     public DTOResultado mover(Direccion dir) {
@@ -70,10 +78,14 @@ public class ControladorJuego {
     private DTOResultado evaluarYConstruir() {
         boolean victoria = condicionVictoria.evaluar(tablero);
         boolean derrota = condicionDerrota.evaluar(tablero);
+        String motivoDerrota = null;
 
-        if (victoria && puntaje.getPuntajeBruto() < 0) {
+        if (derrota) {
+            motivoDerrota = "¡Una caja se ha destruido!";
+        } else if (victoria && puntaje.getPuntajeBruto() < 0) {
             victoria = false;
             derrota = true;
+            motivoDerrota = "Te quedaste sin recursos para resolver el caso";
         }
 
         DTOResultado resultado = constructorDTO.construir(tablero, victoria, derrota, puntaje);
@@ -81,7 +93,7 @@ public class ControladorJuego {
         if (victoria) {
             mostrarVictoria();
         } else if (derrota) {
-            mostrarDerrota();
+            mostrarDerrota(motivoDerrota);
         }
 
         return resultado;
@@ -107,17 +119,23 @@ public class ControladorJuego {
         return new Memento(estados, estadoCandado);
     }
 
-    public void comenzarJuego() {
-        mostrarInicio();
+    public int getNivelActual() {
+        return nivel;
     }
 
-    public void reiniciarJuego() {
-        cargarNivel(this.nivel);
+    public void comenzarJuego() {
+        mostrarInicio();
     }
 
     public void mostrarInicio() { mainVista.mostrarInicio(); }
     public void mostrarNiveles() { mainVista.mostrarNiveles(); }
     public void mostrarPausa() { mainVista.mostrarPausa(); }
-    public void mostrarVictoria() { mainVista.mostrarVictoria(); }
-    public void mostrarDerrota() { mainVista.mostrarDerrota(); }
+
+    public void mostrarVictoria() {
+        mainVista.mostrarVictoria(puntaje.getPuntaje());
+    }
+
+    public void mostrarDerrota(String motivo) {
+        mainVista.mostrarDerrota(motivo);
+    }
 }
