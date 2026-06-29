@@ -2,51 +2,51 @@ package vista.juego;
 
 import modelo.dto.DTOCelda;
 import modelo.dto.DTOResultado;
-import modelo.entidades.Coordenada;
+import modelo.entidades.DimensionTablero;
 import vista.utils.RenderizadorCelda;
 
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-// Utiliza DTOResultado del MOdelo, refresh completo
 public class PanelMapa extends JPanel {
 
     private final ContenedorMapa contenedor;
-    private Map<Coordenada, DTOCelda> celdas = new HashMap<>();
-    private int filas;
-    private int columnas;
+    private DimensionTablero dimension;
+    private DTOCelda[][] celdas;
 
-    public PanelMapa(ContenedorMapa contenedor) {
+    public PanelMapa(ContenedorMapa contenedor, DimensionTablero dimension) {
         this.contenedor = contenedor;
+        this.dimension = dimension;
+        this.celdas = new DTOCelda[dimension.getFilas()][dimension.getColumnas()];
         setOpaque(false);
     }
 
-    public void aplicarEstado(DTOResultado resultado, int filas, int columnas) {
-        this.filas = filas;
-        this.columnas = columnas;
-        this.celdas = indexarCeldas(resultado.getCeldas());
-
-        contenedor.recalcularDimensiones(filas, columnas);
+    public void aplicarEstado(DTOResultado resultado) {
+        volcarCeldas(resultado.getCeldas());
         repaint();
     }
 
-    private Map<Coordenada, DTOCelda> indexarCeldas(List<DTOCelda> lista) {
-        Map<Coordenada, DTOCelda> mapa = new HashMap<>();
+    public void recalcularDimension(DimensionTablero dimension) {
+        this.dimension = dimension;
+        this.celdas = new DTOCelda[dimension.getFilas()][dimension.getColumnas()];
+        contenedor.recalcularDimensiones(dimension);
+    }
+
+    private void volcarCeldas(List<DTOCelda> lista) {
         for (DTOCelda c : lista) {
-            mapa.put(c.getCoordenada(), c);
+            int fila = c.getCoordenada().getFila();
+            int columna = c.getCoordenada().getColumna();
+            celdas[fila][columna] = c;
         }
-        return mapa;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if (celdas.isEmpty()) return;
+        if (celdas == null) return;
 
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
@@ -56,9 +56,9 @@ public class PanelMapa extends JPanel {
         int offsetX = contenedor.getOffsetX();
         int offsetY = contenedor.getOffsetY();
 
-        for (int fila = 0; fila < filas; fila++) {
-            for (int columna = 0; columna < columnas; columna++) {
-                DTOCelda celda = celdas.get(new Coordenada(fila, columna));
+        for (int fila = 0; fila < dimension.getFilas(); fila++) {
+            for (int columna = 0; columna < dimension.getColumnas(); columna++) {
+                DTOCelda celda = celdas[fila][columna];
                 if (celda == null) continue;
 
                 float px = offsetX + columna * tamCelda;
