@@ -1,6 +1,8 @@
 package vista.juego;
 
+import modelo.dto.DTOResultado;
 import vista.utils.BotonImagen;
+import vista.utils.CargadorFuente;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -8,102 +10,94 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class PanelHUD extends JPanel {
 
+    private static final String PATH_FUENTE = "/fuentes/special_elite.ttf";
 
-    // Contadores 
-    // TODO: CHEQUEUAR SI AGREGAR MAS LBLS DEPENDIENDO LOGICA DE PUNTAJE
-    private final EtiquetaContador lblMovimientos;
-    private final EtiquetaContador lblEmpujes;
     private final EtiquetaContador lblNivel;
+    private final EtiquetaContador lblPuntaje;
+    private final EtiquetaContador lblMovimientos;
+    private final EtiquetaContador lblUndos;
 
-
-    // Botones de acción
     private final BotonImagen btnPausa;
     private final BotonImagen btnUndo;
     private final BotonImagen btnReiniciar;
     private final BotonImagen btnMenu;
 
-    // Direcciones
     private final PanelDirecciones panelDirecciones;
 
-    // Callbacks — conectados por el controlador
     private Runnable onPausa;
     private Runnable onUndo;
     private Runnable onReiniciar;
     private Runnable onMenu;
 
-    
-
-    /**
-     * @param ancho  ancho del panel en px
-     * @param alto   alto del panel en px
-     */
     public PanelHUD(int ancho, int alto) {
         setOpaque(false);
         setPreferredSize(new Dimension(ancho, alto));
         setSize(ancho, alto);
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS)); //TODO CHECK PATH
 
-        // Contadores
-        lblNivel       = new EtiquetaContador("Nivel",       1);
+        lblNivel       = new EtiquetaContador("Nivel", 1);
+        lblPuntaje     = new EtiquetaContador("Puntaje", 1000);
         lblMovimientos = new EtiquetaContador("Movimientos", 0);
-        lblEmpujes     = new EtiquetaContador("Empujes",     0);
+        lblUndos       = new EtiquetaContador("Undos", 0);
 
-        // Botones 
-        // TODO: CHEUQEAR PATH IMAGENES O AGREGAR IMAGENES
-        btnPausa     = crearBoton("/imagenes/hud/pausa.png",
-                                  "/imagenes/hud/pausa_hover.png");
-        btnUndo      = crearBoton("/imagenes/hud/undo.png",
-                                  "/imagenes/hud/undo_hover.png");
-        btnReiniciar = crearBoton("/imagenes/hud/reiniciar.png",
-                                  "/imagenes/hud/reiniciar_hover.png");
-        btnMenu      = crearBoton("/imagenes/hud/menu.png",
-                                  "/imagenes/hud/menu_hover.png");
+        aplicarFuente(lblNivel, lblPuntaje, lblMovimientos, lblUndos);
 
-        // Direcciones
+        btnPausa     = crearBoton("/imagenes/hud/pausa.png", "/imagenes/hud/pausa_hover.png");
+        btnUndo      = crearBoton("/imagenes/hud/undo.png", "/imagenes/hud/undo_hover.png");
+        btnReiniciar = crearBoton("/imagenes/hud/reiniciar.png", "/imagenes/hud/reiniciar_hover.png");
+        btnMenu      = crearBoton("/imagenes/hud/menu.png", "/imagenes/hud/menu_hover.png");
+
         panelDirecciones = new PanelDirecciones();
 
         ensamblar();
         configurarListeners();
     }
 
-
-    // SEtters publigocs
-    public void setNivel      (int v) { lblNivel.setValor(v);       }
-    public void setMovimientos(int v) { lblMovimientos.setValor(v); }
-    public void setEmpujes    (int v) { lblEmpujes.setValor(v);     }
-
-    public void resetearContadores() {
-        lblMovimientos.resetear();
-        lblEmpujes.resetear();
+    public void actualizar(DTOResultado resultado) {
+        lblPuntaje.setValor(resultado.getPuntaje());
+        lblMovimientos.setValor(resultado.getMovidas());
+        lblUndos.setValor(resultado.getUndos());
     }
 
+    public void setNivel(int v) {
+        lblNivel.setValor(v);
+    }
 
-    // callbacks de botones
+    public void resetearContadores() {
+        lblPuntaje.setValor(1000);
+        lblMovimientos.resetear();
+        lblUndos.resetear();
+    }
 
-    public void setOnPausa    (Runnable r) { this.onPausa     = r; }
-    public void setOnUndo     (Runnable r) { this.onUndo      = r; }
+    public void setOnPausa(Runnable r)     { this.onPausa = r; }
+    public void setOnUndo(Runnable r)      { this.onUndo = r; }
     public void setOnReiniciar(Runnable r) { this.onReiniciar = r; }
-    public void setOnMenu     (Runnable r) { this.onMenu      = r; }
+    public void setOnMenu(Runnable r)      { this.onMenu = r; }
 
-    // Delega al PanelDirecciones
-    public void setOnArriba   (Runnable r) { panelDirecciones.setOnArriba(r);    }
-    public void setOnAbajo    (Runnable r) { panelDirecciones.setOnAbajo(r);     }
+    public void setOnArriba(Runnable r)    { panelDirecciones.setOnArriba(r); }
+    public void setOnAbajo(Runnable r)     { panelDirecciones.setOnAbajo(r); }
     public void setOnIzquierda(Runnable r) { panelDirecciones.setOnIzquierda(r); }
-    public void setOnDerecha  (Runnable r) { panelDirecciones.setOnDerecha(r);   }
-
-
-    // Getters de sub-componentes (por si el controlador necesita acceso fino)
+    public void setOnDerecha(Runnable r)   { panelDirecciones.setOnDerecha(r); }
 
     public PanelDirecciones getPanelDirecciones() { return panelDirecciones; }
 
+    public void setInputHabilitado(boolean habilitado) {
+        panelDirecciones.setEnabled(habilitado);
+        btnUndo.setEnabled(habilitado);
+    }
 
-    // helpers Privados
-
+    private void aplicarFuente(EtiquetaContador... labels) {
+        Font fuente = CargadorFuente.cargar(PATH_FUENTE, Font.PLAIN, 22f);
+        for (EtiquetaContador lbl : labels) {
+            lbl.setFont(fuente);
+        }
+    }
 
     private void ensamblar() {
         int gap = 20;
@@ -111,19 +105,19 @@ public class PanelHUD extends JPanel {
         add(Box.createVerticalStrut(gap));
         add(centrar(lblNivel));
         add(Box.createVerticalStrut(gap));
-
         add(separador());
         add(Box.createVerticalStrut(gap));
 
+        add(centrar(lblPuntaje));
+        add(Box.createVerticalStrut(gap / 2));
         add(centrar(lblMovimientos));
         add(Box.createVerticalStrut(gap / 2));
-        add(centrar(lblEmpujes));
+        add(centrar(lblUndos));
         add(Box.createVerticalStrut(gap));
 
         add(separador());
         add(Box.createVerticalStrut(gap));
 
-        // Botones de acción en fila
         JPanel filaBotones = new JPanel();
         filaBotones.setOpaque(false);
         filaBotones.add(btnPausa);
@@ -142,32 +136,25 @@ public class PanelHUD extends JPanel {
 
     private void configurarListeners() {
         btnPausa.addMouseListener(new MouseAdapter() {
-            @Override public void mouseClicked(MouseEvent e) {
-                if (onPausa != null) onPausa.run();
-            }
+            @Override public void mouseClicked(MouseEvent e) { if (onPausa != null) onPausa.run(); }
         });
         btnUndo.addMouseListener(new MouseAdapter() {
-            @Override public void mouseClicked(MouseEvent e) {
-                if (onUndo != null) onUndo.run();
-            }
+            @Override public void mouseClicked(MouseEvent e) { if (onUndo != null) onUndo.run(); }
         });
         btnReiniciar.addMouseListener(new MouseAdapter() {
-            @Override public void mouseClicked(MouseEvent e) {
-                if (onReiniciar != null) onReiniciar.run();
-            }
+            @Override public void mouseClicked(MouseEvent e) { if (onReiniciar != null) onReiniciar.run(); }
         });
         btnMenu.addMouseListener(new MouseAdapter() {
-            @Override public void mouseClicked(MouseEvent e) {
-                if (onMenu != null) onMenu.run();
-            }
+            @Override public void mouseClicked(MouseEvent e) { if (onMenu != null) onMenu.run(); }
         });
     }
 
     private BotonImagen crearBoton(String pathNormal, String pathHover) {
         BotonImagen btn = new BotonImagen(pathNormal, pathHover);
-        btn.setPreferredSize(new Dimension(60, 60));
-        btn.setMinimumSize(new Dimension(60, 60));
-        btn.setMaximumSize(new Dimension(60, 60));
+        Dimension dim = new Dimension(60, 60);
+        btn.setPreferredSize(dim);
+        btn.setMinimumSize(dim);
+        btn.setMaximumSize(dim);
         return btn;
     }
 
