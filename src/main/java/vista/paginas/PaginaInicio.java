@@ -14,8 +14,8 @@ public class PaginaInicio extends JPanel {
 
     private static final int ANCHO        = 1920;
     private static final int ALTO         = 1080;
-    private static final int ANCHO_BOTON  = 200;
-    private static final int ALTO_BOTON   = 100;
+    private static final int ANCHO_BOTON  = 400;
+    private static final int ALTO_BOTON   = 145;
 
     // Sub-componentes
     private final BotonImagen btnJugar;
@@ -48,21 +48,21 @@ public class PaginaInicio extends JPanel {
         panelCentral.setOpaque(false);
         panelCentral.setLayout(new BoxLayout(panelCentral, BoxLayout.Y_AXIS));
 
-        btnJugar.setAlignmentX(CENTER_ALIGNMENT);
-        btnNiveles.setAlignmentX(CENTER_ALIGNMENT);
-        btnSalir.setAlignmentX(CENTER_ALIGNMENT);
+        btnJugar.setAlignmentX(LEFT_ALIGNMENT);
+        btnNiveles.setAlignmentX(LEFT_ALIGNMENT);
+        btnSalir.setAlignmentX(LEFT_ALIGNMENT);
 
         panelCentral.add(Box.createVerticalGlue());
-        panelCentral.add(Box.createVerticalStrut(40));
+        panelCentral.add(Box.createVerticalStrut(45));
         panelCentral.add(btnJugar);
-        panelCentral.add(Box.createVerticalStrut(20));
+        panelCentral.add(Box.createVerticalStrut(45));
         panelCentral.add(btnNiveles);
-        panelCentral.add(Box.createVerticalStrut(20));
+        panelCentral.add(Box.createVerticalStrut(45));
         panelCentral.add(btnSalir);
         panelCentral.add(Box.createVerticalGlue());
 
         // Centrado horizontal: x = (1920 - 200) / 2 = 860
-        int panelAncho = ANCHO_BOTON + 40;
+        int panelAncho = 1200;
         int panelAlto  = ALTO;
         panelCentral.setBounds((ANCHO - panelAncho) / 2, 0, panelAncho, panelAlto);
 
