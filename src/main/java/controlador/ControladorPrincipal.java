@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ControladorPrincipal {
 
-    private static final int CANTIDAD_NIVELES = 10; // TODO: ajustar cantidad nieles
+    private static final int CANTIDAD_NIVELES = 6; 
     private final MainVista mainVista;
     private final ControladorJuego controladorJuego;
     private final ControladorPaginaJuego controladorPaginaJuego;
@@ -21,13 +21,8 @@ public class ControladorPrincipal {
             "/imagenes/niveles/nivel3.png",
             "/imagenes/niveles/nivel4.png",
             "/imagenes/niveles/nivel5.png",
-            "/imagenes/niveles/nivel6.png",
-            "/imagenes/niveles/nivel7.png",
-            "/imagenes/niveles/nivel8.png",
-            "/imagenes/niveles/nivel9.png",
-            "/imagenes/niveles/nivel10.png"
-        ); // TODO: path SCREENSHOT
-
+            "/imagenes/niveles/nivel6.png"
+        ); 
         this.mainVista = new MainVista(CANTIDAD_NIVELES, screenshots);
         this.controladorJuego = new ControladorJuego(mainVista);
 
