@@ -94,6 +94,7 @@ public class PanelDirecciones extends JPanel {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
+                if (!isEnabled()) return; 
                 switch (e.getKeyCode()) {
                     case KeyEvent.VK_UP:    if (onArriba != null) onArriba.run(); break;
                     case KeyEvent.VK_DOWN:  if (onAbajo != null) onAbajo.run(); break;
