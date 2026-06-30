@@ -17,4 +17,8 @@ public class EstadoEntidadMovible {
     public void restaurar(Tablero tablero) {
         tablero.restaurarPosicionMovible(entidad, posicion);
     }
+    
+    public EntidadMovible getEntidad() {
+        return entidad;
+    }
 }
