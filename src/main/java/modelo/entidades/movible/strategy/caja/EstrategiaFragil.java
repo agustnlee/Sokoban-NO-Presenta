@@ -6,7 +6,7 @@ import modelo.entidades.movible.Caja;
 
 public class EstrategiaFragil implements ComportamientoCaja {
  
-    private static final int EMPUJES_POR_DEFECTO = 10;
+    private static final int EMPUJES_POR_DEFECTO = 15;
  
     private int empujesRestantes;
  
