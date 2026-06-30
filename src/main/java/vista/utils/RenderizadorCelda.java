@@ -11,6 +11,8 @@ import java.awt.image.BufferedImage;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
+import java.awt.BasicStroke;
+import java.awt.Stroke;
 
 public final class RenderizadorCelda {
 
@@ -52,6 +54,18 @@ public final class RenderizadorCelda {
         if (celda.getTipoEntidad() == TipoEntidad.CAJA_FRAGIL && !celda.isCajaBloqueada()) {
             dibujarNumeroEmpujes(g, celda.getEmpujesRestantes(), px, py, tamCelda);
         }
+
+        dibujarBorde(g, px, py, tamCelda);
+    }
+
+    private static void dibujarBorde(Graphics2D g, float px, float py, int tamCelda) {
+        Stroke anterior = g.getStroke();
+
+        g.setColor(Color.WHITE);
+        g.setStroke(new BasicStroke(0.5f)); 
+        g.drawRect((int) px, (int) py, tamCelda - 1, tamCelda - 1);
+
+        g.setStroke(anterior);
     }
 
 
