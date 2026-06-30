@@ -1,6 +1,9 @@
 package vista.overlays;
 
 import javax.swing.Timer;
+
+import vista.utils.CargadorFuente;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -61,7 +64,7 @@ public class OverlayCuentaAtras extends OverlayOscuro {
         String texto = SECUENCIA[indiceActual];
         boolean esUltimo = indiceActual == SECUENCIA.length - 1;
 
-        Font fuente = new Font("Arial", Font.BOLD, esUltimo ? 64 : 120);
+        Font fuente = CargadorFuente.cargar("/fuentes/special_elite.ttf", Font.BOLD, esUltimo ? 52f : 85f);
         g2d.setFont(fuente);
         g2d.setColor(Color.WHITE);
 
