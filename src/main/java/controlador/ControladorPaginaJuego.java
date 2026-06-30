@@ -13,6 +13,7 @@ import java.util.function.Supplier;
 public class ControladorPaginaJuego {
 
     private final ControladorJuego controladorJuego;
+    private final PaginaJuego paginaJuego;
     private final PanelMapa panelMapa;
     private final PanelHUD panelHUD;
     private final PanelTransicionMano panelTransicion;
@@ -24,6 +25,7 @@ public class ControladorPaginaJuego {
                                    PanelTransicionMano panelTransicion,
                                    OverlayCuentaAtras overlayCuentaAtras) {
         this.controladorJuego = controladorJuego;
+        this.paginaJuego = paginaJuego;
         this.panelMapa = panelMapa;
         this.panelHUD = paginaJuego.getPanelHUD();
         this.panelTransicion = panelTransicion;
@@ -33,13 +35,17 @@ public class ControladorPaginaJuego {
     }
 
     private void conectarInput() {
-        panelHUD.setOnArriba(() -> solicitarMovimiento(Direccion.ARRIBA));
-        panelHUD.setOnAbajo(() -> solicitarMovimiento(Direccion.ABAJO));
-        panelHUD.setOnIzquierda(() -> solicitarMovimiento(Direccion.IZQUIERDA));
-        panelHUD.setOnDerecha(() -> solicitarMovimiento(Direccion.DERECHA));
+        paginaJuego.getPanelDirecciones().setOnArriba(() -> solicitarMovimiento(Direccion.ARRIBA));
+        paginaJuego.getPanelDirecciones().setOnAbajo(() -> solicitarMovimiento(Direccion.ABAJO));
+        paginaJuego.getPanelDirecciones().setOnIzquierda(() -> solicitarMovimiento(Direccion.IZQUIERDA));
+        paginaJuego.getPanelDirecciones().setOnDerecha(() -> solicitarMovimiento(Direccion.DERECHA));
 
-        panelHUD.setOnUndo(this::solicitarUndo);
-        panelHUD.setOnPausa(controladorJuego::mostrarPausa);
+        paginaJuego.getBtnUndo().addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override public void mouseClicked(java.awt.event.MouseEvent e) { solicitarUndo(); }
+        });
+        paginaJuego.getBtnPausa().addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override public void mouseClicked(java.awt.event.MouseEvent e) { controladorJuego.mostrarPausa(); }
+        });
     }
 
     public void cargarNivel(int nivel) {
@@ -48,10 +54,10 @@ public class ControladorPaginaJuego {
         panelHUD.resetearContadores();
         actualizarVista(resultado);
 
-        panelHUD.setInputHabilitado(false);
+        paginaJuego.setInputHabilitado(false);
         overlayCuentaAtras.iniciar(() -> {
-            panelHUD.setInputHabilitado(true);
-            panelHUD.getPanelDirecciones().solicitarFoco();
+            paginaJuego.setInputHabilitado(true);
+            paginaJuego.getPanelDirecciones().solicitarFoco();
         });
     }
 
@@ -70,11 +76,11 @@ public class ControladorPaginaJuego {
     }
 
     private void iniciarTransicion(Supplier<DTOResultado> accion) {
-        panelHUD.setInputHabilitado(false);
+        paginaJuego.setInputHabilitado(false);
 
         panelTransicion.iniciar(
             () -> actualizarVista(accion.get()),
-            () -> panelHUD.setInputHabilitado(true)
+            () -> paginaJuego.setInputHabilitado(true)
         );
     }
 

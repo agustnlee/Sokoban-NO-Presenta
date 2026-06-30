@@ -2,6 +2,7 @@ package vista.paginas;
 
 import vista.juego.BotonNivel;
 import vista.utils.BotonImagen;
+import vista.utils.CargadorFuente;
 import vista.utils.ImagenFondo;
 
 import javax.swing.JPanel;
@@ -47,7 +48,7 @@ public class PaginaNiveles extends JPanel {
 
         // Título
         JLabel titulo = new JLabel("NIVELES", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 48));
+        titulo.setFont(CargadorFuente.cargar("/fuentes/special_elite.ttf", Font.PLAIN, 48f));
         titulo.setForeground(Color.WHITE);
         titulo.setBounds((ANCHO - ANCHO_TITULO) / 2, 25, ANCHO_TITULO, ALTO_TITULO);
         add(titulo);
@@ -66,11 +67,11 @@ public class PaginaNiveles extends JPanel {
 
         // Botón volver
         btnVolver = new BotonImagen(
-            "/imagenes/ui/btn_volver.png",
-            "/imagenes/ui/btn_volver_hover.png" //CHEQUEA PATH
+            "/imagenes/hud/menu.png",
+            "/imagenes/hud/menu_hover.png" //CHEQUEA PATH
         );
-        btnVolver.setPreferredSize(new Dimension(150, 60));
-        btnVolver.setBounds(40, ALTO - 100, 150, 60);
+        btnVolver.setPreferredSize(new Dimension(160, 160));
+        btnVolver.setBounds(60, ALTO - 200, 160, 160);
         add(btnVolver);
 
         add(fondo);

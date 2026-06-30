@@ -62,7 +62,7 @@ public class PanelDirecciones extends JPanel {
 
     private void configurarLayout() {
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(4, 4, 4, 4);
+        gbc.insets = new Insets(0, 0, 0, 0);
 
         gbc.gridx = 1; gbc.gridy = 0;
         add(btnArriba, gbc);
