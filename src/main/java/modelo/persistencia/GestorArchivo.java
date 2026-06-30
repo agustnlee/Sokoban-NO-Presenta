@@ -11,9 +11,10 @@ import modelo.entidades.Tablero;
 import modelo.entidades.Coordenada;
 import modelo.entidades.DimensionTablero;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,7 @@ PA PA PA PA PA PA PA PA PA PA
 ---
 NA NA NA NA NA NA NA NA NA NA
 NA JU NA CB NA NA NA NA NA NA
-NA NA NA CL NA NA NA NA NA NA
+NA NA NA CL NA NA NA NA NA NAd
 NA NA NA NA NA NA NA NA NA NA
 NA NA NA NA NA NA NA NA NA NA
  */
@@ -167,10 +168,18 @@ public class GestorArchivo {
     }
  
     private List<String> leerArchivo(String ruta) {
-        try {
-            return Files.readAllLines(Paths.get(ruta));
+        try (InputStream is = getClass().getClassLoader().getResourceAsStream(ruta)) {
+
+            if (is == null) {
+                throw new RuntimeException("No se encontró el recurso: " + ruta);
+            }
+
+            return new BufferedReader(new InputStreamReader(is))
+                    .lines()
+                    .toList();
+
         } catch (IOException e) {
-            throw new RuntimeException("No se pudo leer el archivo de nivel: " + ruta, e);
+            throw new RuntimeException("No se pudo leer el recurso: " + ruta, e);
         }
     }
 }
