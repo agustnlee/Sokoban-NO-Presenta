@@ -42,6 +42,9 @@ public class MainVista {
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.frame.setLocationRelativeTo(null);
+        this.frame.setIconImage(
+            vista.utils.CargadorImagen.getInstancia().cargar("/imagenes/ui/icono.png")
+        );
         this.frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -50,6 +53,7 @@ public class MainVista {
         });
 
         this.layers = frame.getLayeredPane();
+        this.layers.setBounds(0, 0, ANCHO, ALTO);
 
         paginaInicio  = new PaginaInicio();
         paginaNiveles = new PaginaNiveles(cantidadNiveles, pathsScreenshots);
@@ -71,9 +75,10 @@ public class MainVista {
         UtilVisibilidad.ocultar(overlayDerrota);
         UtilVisibilidad.ocultar(overlayCuentaAtras);
 
-        this.frame.setVisible(true);
+
         this.frame.revalidate();
         this.frame.repaint();
+        this.frame.setVisible(true);
     }
 
     public void mostrarInicio() {

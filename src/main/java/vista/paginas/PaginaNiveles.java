@@ -42,7 +42,8 @@ public class PaginaNiveles extends JPanel {
         // Fondo
         ImagenFondo fondo = new ImagenFondo("/imagenes/fondos/niveles.png");
         fondo.setBounds(0, 0, ANCHO, ALTO);
-        add(fondo);
+
+
 
         // Título
         JLabel titulo = new JLabel("NIVELES", JLabel.CENTER);
@@ -71,6 +72,8 @@ public class PaginaNiveles extends JPanel {
         btnVolver.setPreferredSize(new Dimension(150, 60));
         btnVolver.setBounds(40, ALTO - 100, 150, 60);
         add(btnVolver);
+
+        add(fondo);
 
         configurarListeners();
     }
