@@ -25,15 +25,11 @@ public class PanelHUD extends JPanel {
 
     private final BotonImagen btnPausa;
     private final BotonImagen btnUndo;
-    private final BotonImagen btnReiniciar;
-    private final BotonImagen btnMenu;
 
     private final PanelDirecciones panelDirecciones;
 
     private Runnable onPausa;
     private Runnable onUndo;
-    private Runnable onReiniciar;
-    private Runnable onMenu;
 
     public PanelHUD(int ancho, int alto) {
         setOpaque(false);
@@ -50,8 +46,6 @@ public class PanelHUD extends JPanel {
 
         btnPausa     = crearBoton("/imagenes/hud/pausa.png", "/imagenes/hud/pausa_hover.png");
         btnUndo      = crearBoton("/imagenes/hud/undo.png", "/imagenes/hud/undo_hover.png");
-        btnReiniciar = crearBoton("/imagenes/hud/reiniciar.png", "/imagenes/hud/reiniciar_hover.png");
-        btnMenu      = crearBoton("/imagenes/hud/menu.png", "/imagenes/hud/menu_hover.png");
 
         panelDirecciones = new PanelDirecciones();
 
@@ -77,8 +71,6 @@ public class PanelHUD extends JPanel {
 
     public void setOnPausa(Runnable r)     { this.onPausa = r; }
     public void setOnUndo(Runnable r)      { this.onUndo = r; }
-    public void setOnReiniciar(Runnable r) { this.onReiniciar = r; }
-    public void setOnMenu(Runnable r)      { this.onMenu = r; }
 
     public void setOnArriba(Runnable r)    { panelDirecciones.setOnArriba(r); }
     public void setOnAbajo(Runnable r)     { panelDirecciones.setOnAbajo(r); }
@@ -122,8 +114,6 @@ public class PanelHUD extends JPanel {
         filaBotones.setOpaque(false);
         filaBotones.add(btnPausa);
         filaBotones.add(btnUndo);
-        filaBotones.add(btnReiniciar);
-        filaBotones.add(btnMenu);
         add(centrar(filaBotones));
 
         add(Box.createVerticalStrut(gap));
@@ -140,12 +130,6 @@ public class PanelHUD extends JPanel {
         });
         btnUndo.addMouseListener(new MouseAdapter() {
             @Override public void mouseClicked(MouseEvent e) { if (onUndo != null) onUndo.run(); }
-        });
-        btnReiniciar.addMouseListener(new MouseAdapter() {
-            @Override public void mouseClicked(MouseEvent e) { if (onReiniciar != null) onReiniciar.run(); }
-        });
-        btnMenu.addMouseListener(new MouseAdapter() {
-            @Override public void mouseClicked(MouseEvent e) { if (onMenu != null) onMenu.run(); }
         });
     }
 

@@ -30,7 +30,7 @@ public class OverlayPausa extends OverlayOscuro {
 
         btnReanudar  = crearBoton("reanudar");
         btnReiniciar = crearBoton("reiniciar"); //TODO CHEQUEAR PATH
-        btnMenu      = crearBoton("menu");
+        btnMenu = crearBoton("volver");
 
         int panelAncho = 300;
         int panelAlto  = 400;

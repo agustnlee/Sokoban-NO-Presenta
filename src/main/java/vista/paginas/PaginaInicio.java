@@ -14,13 +14,10 @@ public class PaginaInicio extends JPanel {
 
     private static final int ANCHO        = 1920;
     private static final int ALTO         = 1080;
-    private static final int ANCHO_ICONO  = 300;
-    private static final int ALTO_ICONO   = 200;
     private static final int ANCHO_BOTON  = 200;
     private static final int ALTO_BOTON   = 100;
 
     // Sub-componentes
-    private final BotonImagen icono;
     private final BotonImagen btnJugar;
     private final BotonImagen btnNiveles;
     private final BotonImagen btnSalir;
@@ -39,14 +36,7 @@ public class PaginaInicio extends JPanel {
         // Fondo
         ImagenFondo fondo = new ImagenFondo("/imagenes/fondos/inicio.png");
         fondo.setBounds(0, 0, ANCHO, ALTO);
-        add(fondo);
 
-        // Ícono / logo
-        icono = new BotonImagen(
-            "/imagenes/ui/icono.png",
-            "/imagenes/ui/icono.png"
-        );
-        icono.setPreferredSize(new Dimension(ANCHO_ICONO, ALTO_ICONO));
 
         // Botones
         btnJugar   = crearBoton("jugar");
@@ -58,13 +48,11 @@ public class PaginaInicio extends JPanel {
         panelCentral.setOpaque(false);
         panelCentral.setLayout(new BoxLayout(panelCentral, BoxLayout.Y_AXIS));
 
-        icono.setAlignmentX(CENTER_ALIGNMENT);
         btnJugar.setAlignmentX(CENTER_ALIGNMENT);
         btnNiveles.setAlignmentX(CENTER_ALIGNMENT);
         btnSalir.setAlignmentX(CENTER_ALIGNMENT);
 
         panelCentral.add(Box.createVerticalGlue());
-        panelCentral.add(icono);
         panelCentral.add(Box.createVerticalStrut(40));
         panelCentral.add(btnJugar);
         panelCentral.add(Box.createVerticalStrut(20));
@@ -79,6 +67,7 @@ public class PaginaInicio extends JPanel {
         panelCentral.setBounds((ANCHO - panelAncho) / 2, 0, panelAncho, panelAlto);
 
         add(panelCentral);
+        add(fondo);
 
         configurarListeners();
     }
@@ -94,7 +83,7 @@ public class PaginaInicio extends JPanel {
     // Privados
   
 
-    private BotonImagen crearBoton(String nombre) { //TODO.CHEQUEAR IMAGENS
+    private BotonImagen crearBoton(String nombre) { 
         BotonImagen btn = new BotonImagen(
             "/imagenes/ui/btn_" + nombre + ".png",
             "/imagenes/ui/btn_" + nombre + "_hover.png"

@@ -21,17 +21,18 @@ public final class CargadorImagen {
     }
 
     public BufferedImage cargar(String path) {
-        BufferedImage imagen = leerDesdeDisco(path);
-        if (imagen == null) {
-            imagen = leerDesdeDisco(PATH_ERROR);
-        }
-        return imagen;
+        return leerDesdeDisco(path);
+       // BufferedImage imagen = leerDesdeDisco(path);
+        //if (imagen == null) {
+            //imagen = leerDesdeDisco(PATH_ERROR);
+        //}
+        //return imagen; TDOO comentario
     }
 
     private BufferedImage leerDesdeDisco(String path) {
         try {
             URL url = CargadorImagen.class.getResource(path);
-            if (url == null) return null;
+            if (url == null) { System.out.println("NO ENCONTRADO: " + path); return null; }
             return convertirArgb(ImageIO.read(url));
         } catch (IOException e) {
             return null;
