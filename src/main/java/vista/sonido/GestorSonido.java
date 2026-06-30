@@ -28,6 +28,16 @@ public class GestorSonido {
         }
     }
 
+    public void detenerMusica() {
+        if (musicaActual != null) {
+            if (musicaActual.isRunning()) {
+                musicaActual.stop();
+            }
+            musicaActual.close();
+            musicaActual = null; // Seteamos en null para limpiar la referencia
+        }
+    }
+
     private void reproducirMusica(Sonido sonido) {
         if (musicaActual != null) {
             musicaActual.stop();
@@ -41,6 +51,7 @@ public class GestorSonido {
             musicaActual.start();
         }
     }
+
 
     private void reproducirEfecto(Sonido sonido) {
         Clip efecto = cargarClip(sonido);
