@@ -1,6 +1,9 @@
 package vista.overlays;
 
 import javax.swing.Timer;
+
+import vista.utils.CargadorFuente;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -11,7 +14,7 @@ import java.awt.RenderingHints;
 public class OverlayCuentaAtras extends OverlayOscuro {
 
     private static final int DURACION_NUMERO_MS = 700;
-    private static final String[] SECUENCIA = {"5", "4", "3", "2", "1", "¡Recrear!"};
+    private static final String[] SECUENCIA = {"5", "4", "3", "2", "1", "¡RECREAR!"};
 
     private int indiceActual;
     private Timer timer;
@@ -61,9 +64,9 @@ public class OverlayCuentaAtras extends OverlayOscuro {
         String texto = SECUENCIA[indiceActual];
         boolean esUltimo = indiceActual == SECUENCIA.length - 1;
 
-        Font fuente = new Font("Arial", Font.BOLD, esUltimo ? 64 : 120);
+        Font fuente = CargadorFuente.cargar("/fuentes/special_elite.ttf", Font.BOLD, esUltimo ? 172f : 112f);
         g2d.setFont(fuente);
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Color.RED);
 
         FontMetrics fm = g2d.getFontMetrics();
         int x = (getWidth() - fm.stringWidth(texto)) / 2;

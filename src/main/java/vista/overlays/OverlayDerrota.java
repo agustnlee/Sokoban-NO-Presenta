@@ -1,6 +1,7 @@
 package vista.overlays;
 
 import vista.utils.BotonImagen;
+import vista.utils.CargadorFuente;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -14,10 +15,10 @@ import java.awt.event.MouseEvent;
 
 public class OverlayDerrota extends OverlayOscuro {
 
-    private static final int ANCHO_BOTON = 200;
-    private static final int ALTO_BOTON  = 80;
-    private static final int PANEL_ANCHO = 400;
-    private static final int PANEL_ALTO  = 420;
+    private static final int ANCHO_BOTON = 400;
+    private static final int ALTO_BOTON  = 120;
+    private static final int PANEL_ANCHO = 800;
+    private static final int PANEL_ALTO  = 600;
 
     private final JLabel      lblMotivo;
     private final BotonImagen btnReiniciar;
@@ -57,17 +58,18 @@ public class OverlayDerrota extends OverlayOscuro {
 
 
     private JPanel construirContenido() {
+        Font fuenteTitulo = CargadorFuente.cargar("/fuentes/special_elite.ttf", Font.BOLD, 68f);
+        Font fuente = CargadorFuente.cargar("/fuentes/special_elite.ttf", Font.PLAIN, 32f);
         JPanel panel = new JPanel();
-        panel.setOpaque(true);
-        panel.setBackground(new Color(60, 10, 10, 210));
+        panel.setOpaque(false);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JLabel titulo = new JLabel("DERROTA", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 48));
+        titulo.setFont(fuenteTitulo);
         titulo.setForeground(new Color(220, 50, 50));
         titulo.setAlignmentX(CENTER_ALIGNMENT);
 
-        lblMotivo.setFont(new Font("Arial", Font.PLAIN, 22));
+        lblMotivo.setFont(fuente);
         lblMotivo.setForeground(new Color(200, 200, 200));
         lblMotivo.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -80,7 +82,7 @@ public class OverlayDerrota extends OverlayOscuro {
         panel.add(lblMotivo);
         panel.add(Box.createVerticalStrut(40));
         panel.add(btnReiniciar);
-        panel.add(Box.createVerticalStrut(15));
+        panel.add(Box.createVerticalStrut(40));
         panel.add(btnMenu);
         panel.add(Box.createVerticalGlue());
 

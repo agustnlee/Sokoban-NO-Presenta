@@ -1,6 +1,7 @@
 package vista.overlays;
 
 import vista.utils.BotonImagen;
+import vista.utils.CargadorFuente;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -14,8 +15,8 @@ import java.awt.event.MouseEvent;
 
 public class OverlayPausa extends OverlayOscuro {
 
-    private static final int ANCHO_BOTON = 200;
-    private static final int ALTO_BOTON  = 80;
+    private static final int ANCHO_BOTON = 400;
+    private static final int ALTO_BOTON  = 120;
 
     private final BotonImagen btnReanudar;
     private final BotonImagen btnReiniciar;
@@ -29,11 +30,11 @@ public class OverlayPausa extends OverlayOscuro {
         super(ancho, alto);
 
         btnReanudar  = crearBoton("reanudar");
-        btnReiniciar = crearBoton("reiniciar"); //TODO CHEQUEAR PATH
+        btnReiniciar = crearBoton("reiniciar");
         btnMenu = crearBoton("volver");
 
-        int panelAncho = 300;
-        int panelAlto  = 400;
+        int panelAncho = 800;
+        int panelAlto  = 600;
 
         JPanel contenido = construirContenido();
         contenido.setBounds(
@@ -56,8 +57,9 @@ public class OverlayPausa extends OverlayOscuro {
         panel.setOpaque(false);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
+        Font fuente = CargadorFuente.cargar("/fuentes/special_elite.ttf", Font.PLAIN, 72f);
         JLabel titulo = new JLabel("PAUSA", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 42));
+        titulo.setFont(fuente);
         titulo.setForeground(Color.WHITE);
         titulo.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -67,11 +69,11 @@ public class OverlayPausa extends OverlayOscuro {
 
         panel.add(Box.createVerticalGlue());
         panel.add(titulo);
-        panel.add(Box.createVerticalStrut(30));
+        panel.add(Box.createVerticalStrut(60));
         panel.add(btnReanudar);
-        panel.add(Box.createVerticalStrut(15));
+        panel.add(Box.createVerticalStrut(45));
         panel.add(btnReiniciar);
-        panel.add(Box.createVerticalStrut(15));
+        panel.add(Box.createVerticalStrut(45));
         panel.add(btnMenu);
         panel.add(Box.createVerticalGlue());
 

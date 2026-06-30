@@ -1,6 +1,7 @@
 package vista.overlays;
 
 import vista.utils.BotonImagen;
+import vista.utils.CargadorFuente;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -14,10 +15,10 @@ import java.awt.event.MouseEvent;
 
 public class OverlayVictoria extends OverlayOscuro {
 
-    private static final int ANCHO_BOTON  = 200;
-    private static final int ALTO_BOTON   = 80;
-    private static final int PANEL_ANCHO  = 400;
-    private static final int PANEL_ALTO   = 450;
+    private static final int ANCHO_BOTON  = 400;
+    private static final int ALTO_BOTON   = 120;
+    private static final int PANEL_ANCHO  = 800;
+    private static final int PANEL_ALTO   = 600;
 
     private final JLabel      lblPuntaje;
     private final BotonImagen btnSiguiente;
@@ -60,17 +61,19 @@ public class OverlayVictoria extends OverlayOscuro {
   
 
     private JPanel construirContenido() {
+        Font fuenteTitulo = CargadorFuente.cargar("/fuentes/special_elite.ttf", Font.BOLD, 68f);
+        Font fuente = CargadorFuente.cargar("/fuentes/special_elite.ttf", Font.PLAIN, 32f);
+
         JPanel panel = new JPanel();
-        panel.setOpaque(true);
-        panel.setBackground(new Color(20, 60, 20, 210));
+        panel.setOpaque(false);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JLabel titulo = new JLabel("¡VICTORIA!", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 48));
+        titulo.setFont(fuenteTitulo);
         titulo.setForeground(new Color(255, 220, 50));
         titulo.setAlignmentX(CENTER_ALIGNMENT);
 
-        lblPuntaje.setFont(new Font("Arial", Font.PLAIN, 28));
+        lblPuntaje.setFont(fuente);
         lblPuntaje.setForeground(Color.WHITE);
         lblPuntaje.setAlignmentX(CENTER_ALIGNMENT);
 
@@ -83,7 +86,7 @@ public class OverlayVictoria extends OverlayOscuro {
         panel.add(lblPuntaje);
         panel.add(Box.createVerticalStrut(40));
         panel.add(btnSiguiente);
-        panel.add(Box.createVerticalStrut(15));
+        panel.add(Box.createVerticalStrut(40));
         panel.add(btnMenu);
         panel.add(Box.createVerticalGlue());
 
@@ -92,7 +95,7 @@ public class OverlayVictoria extends OverlayOscuro {
 
     private BotonImagen crearBoton(String nombre) {
         BotonImagen btn = new BotonImagen(
-            "/imagenes/ui/btn_" + nombre + ".png", //TODO CHEQUEAR PATH IMAGEN
+            "/imagenes/ui/btn_" + nombre + ".png", 
             "/imagenes/ui/btn_" + nombre + "_hover.png"
         );
         btn.setPreferredSize(new Dimension(ANCHO_BOTON, ALTO_BOTON));
