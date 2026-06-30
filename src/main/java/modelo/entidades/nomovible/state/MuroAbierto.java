@@ -19,7 +19,7 @@ public class MuroAbierto implements EstadoMuro {
 
     @Override
     public TipoEntidad getTipoEntidad() {
-        return TipoEntidad.MURO_CERRADO;
+        return TipoEntidad.MURO_ABIERTO;
     }
 }
  

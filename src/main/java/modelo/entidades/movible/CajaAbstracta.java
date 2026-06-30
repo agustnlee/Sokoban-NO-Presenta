@@ -31,6 +31,6 @@ public abstract class CajaAbstracta extends EntidadMovible {
 
     @Override
     public TipoEntidad getTipoEntidad() {
-        return TipoEntidad.CAJA;
+        return estrategia.getTipoEntidad();
     }
 }
