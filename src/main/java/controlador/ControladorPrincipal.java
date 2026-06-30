@@ -43,16 +43,16 @@ public class ControladorPrincipal {
 
     private void conectarNavegacion() {
         mainVista.getPaginaInicio().setOnJugar(() -> {
-            controladorPaginaJuego.cargarNivel(1);
             mainVista.mostrarJuego();
+            controladorPaginaJuego.cargarNivel(1);
         });
         mainVista.getPaginaInicio().setOnNiveles(mainVista::mostrarNiveles);
         mainVista.getPaginaInicio().setOnSalir(() -> System.exit(0));
 
         mainVista.getPaginaNiveles().setOnVolver(mainVista::mostrarInicio);
         mainVista.getPaginaNiveles().setOnNivelSeleccionado(nivel -> {
-            controladorPaginaJuego.cargarNivel(nivel);
             mainVista.mostrarJuego();
+            controladorPaginaJuego.cargarNivel(nivel);
         });
 
         mainVista.getOverlayPausa().setOnReanudar(mainVista::ocultarPausa);
@@ -67,6 +67,7 @@ public class ControladorPrincipal {
 
         mainVista.getOverlayVictoria().setOnSiguiente(() -> {
             mainVista.ocultarVictoria();
+            mainVista.mostrarJuego();
             controladorPaginaJuego.cargarNivel(controladorJuego.getNivelActual() + 1);
         });
         mainVista.getOverlayVictoria().setOnMenu(() -> {
