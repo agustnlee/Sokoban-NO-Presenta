@@ -43,6 +43,7 @@ public class Tablero {
 
     public void colocarMovible(EntidadMovible e, Coordenada c) {
         this.capaMovible[c.getFila()][c.getColumna()] = e;
+        e.setPosicion(c);
     }
 
     public void colocarNoMovible(EntidadNoMovible e, Coordenada c) {

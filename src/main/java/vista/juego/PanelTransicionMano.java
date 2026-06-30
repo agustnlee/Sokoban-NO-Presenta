@@ -11,9 +11,9 @@ import java.awt.image.BufferedImage;
 
 public class PanelTransicionMano extends JPanel {
 
-    private static final int DURACION_ENTRADA_MS = 800;
-    private static final int DURACION_GARABATO_MS = 1500;
-    private static final int DURACION_SALIDA_MS = 800;
+    private static final int DURACION_ENTRADA_MS = 300;
+    private static final int DURACION_GARABATO_MS = 450;
+    private static final int DURACION_SALIDA_MS = 350;
     private static final int INTERVALO_TICK_MS = 16;
 
     private enum Fase { INACTIVO, ENTRANDO, GARABATO, SALIENDO }

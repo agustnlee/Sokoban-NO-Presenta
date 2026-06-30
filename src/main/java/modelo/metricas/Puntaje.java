@@ -2,9 +2,9 @@ package modelo.metricas;
 
 public class Puntaje {
 
-    private static final int PUNTAJE_BASE = 1000;
+    private static final int PUNTAJE_BASE = 100;
     private static final int COSTO_MOVIMIENTO = 1;
-    private static final int COSTO_UNDO = 10;
+    private static final int COSTO_UNDO = 8;
 
     private int puntaje;
     private int movimientos;
