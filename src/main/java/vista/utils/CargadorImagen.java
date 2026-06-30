@@ -21,12 +21,11 @@ public final class CargadorImagen {
     }
 
     public BufferedImage cargar(String path) {
-        return leerDesdeDisco(path);
-       // BufferedImage imagen = leerDesdeDisco(path);
-        //if (imagen == null) {
-            //imagen = leerDesdeDisco(PATH_ERROR);
-        //}
-        //return imagen; TDOO comentario
+        BufferedImage imagen = leerDesdeDisco(path);
+        if (imagen == null) {
+            imagen = leerDesdeDisco(PATH_ERROR);
+        }
+        return imagen; 
     }
 
     private BufferedImage leerDesdeDisco(String path) {
