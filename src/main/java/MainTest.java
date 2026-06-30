@@ -25,7 +25,7 @@ public class MainTest {
             // =========================
             // OVERLAYS
             // =========================
-            // mainVista.mostrarPausa();
+            mainVista.mostrarPausa();
             // mainVista.mostrarVictoria(12345);
             // mainVista.mostrarDerrota("Te quedaste sin movimientos");
 

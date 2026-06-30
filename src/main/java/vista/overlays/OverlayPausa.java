@@ -1,6 +1,7 @@
 package vista.overlays;
 
 import vista.utils.BotonImagen;
+import vista.utils.CargadorFuente;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -56,8 +57,9 @@ public class OverlayPausa extends OverlayOscuro {
         panel.setOpaque(false);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
+        Font fuente = CargadorFuente.cargar("/fuentes/special_elite.ttf", Font.PLAIN, 22f);
         JLabel titulo = new JLabel("PAUSA", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 42));
+        titulo.setFont(fuente);
         titulo.setForeground(Color.WHITE);
         titulo.setAlignmentX(CENTER_ALIGNMENT);
 

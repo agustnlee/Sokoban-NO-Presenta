@@ -1,6 +1,7 @@
 package vista.overlays;
 
 import vista.utils.BotonImagen;
+import vista.utils.CargadorFuente;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -60,17 +61,19 @@ public class OverlayVictoria extends OverlayOscuro {
   
 
     private JPanel construirContenido() {
+        Font fuente = CargadorFuente.cargar("/fuentes/special_elite.ttf", Font.PLAIN, 22f);
+
         JPanel panel = new JPanel();
         panel.setOpaque(true);
         panel.setBackground(new Color(20, 60, 20, 210));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JLabel titulo = new JLabel("¡VICTORIA!", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 48));
+        titulo.setFont(fuente);
         titulo.setForeground(new Color(255, 220, 50));
         titulo.setAlignmentX(CENTER_ALIGNMENT);
 
-        lblPuntaje.setFont(new Font("Arial", Font.PLAIN, 28));
+        lblPuntaje.setFont(fuente);
         lblPuntaje.setForeground(Color.WHITE);
         lblPuntaje.setAlignmentX(CENTER_ALIGNMENT);
 

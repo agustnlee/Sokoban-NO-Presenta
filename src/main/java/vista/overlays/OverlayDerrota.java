@@ -1,6 +1,7 @@
 package vista.overlays;
 
 import vista.utils.BotonImagen;
+import vista.utils.CargadorFuente;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -57,17 +58,18 @@ public class OverlayDerrota extends OverlayOscuro {
 
 
     private JPanel construirContenido() {
+        Font fuente = CargadorFuente.cargar("/fuentes/special_elite.ttf", Font.PLAIN, 22f);
         JPanel panel = new JPanel();
         panel.setOpaque(true);
         panel.setBackground(new Color(60, 10, 10, 210));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JLabel titulo = new JLabel("DERROTA", JLabel.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 48));
+        titulo.setFont(fuente);
         titulo.setForeground(new Color(220, 50, 50));
         titulo.setAlignmentX(CENTER_ALIGNMENT);
 
-        lblMotivo.setFont(new Font("Arial", Font.PLAIN, 22));
+        lblMotivo.setFont(fuente);
         lblMotivo.setForeground(new Color(200, 200, 200));
         lblMotivo.setAlignmentX(CENTER_ALIGNMENT);
 
