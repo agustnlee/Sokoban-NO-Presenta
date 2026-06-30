@@ -32,6 +32,7 @@ public class GeneradorDTOTest {
                 // jugador en una posición fija
                 else if (f == 1 && c == 1) {
                     tipoEntidad = TipoEntidad.JUGADOR;
+                    tipoCasilla = TipoEntidad.DESTINO;
                 }
                 // caja normal
                 else if (f == 2 && c == 3) {
