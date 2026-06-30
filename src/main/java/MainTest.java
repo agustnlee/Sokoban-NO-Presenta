@@ -32,18 +32,18 @@ public class MainTest {
             // =========================
             // CUENTA ATRÁS
             // =========================
-            mainVista.getOverlayCuentaAtras().iniciar(() ->
-              System.out.println("Cuenta atrás terminada")
-            );
+            //mainVista.getOverlayCuentaAtras().iniciar(() ->
+             // System.out.println("Cuenta atrás terminada")
+            //);
 
             // =========================
             // TRANSICIÓN MANO
             // =========================
-            // var panelTransicion = mainVista.getPaginaJuego().getPanelTransicion();
-            // panelTransicion.iniciar(
-            //     () -> System.out.println("Punto medio"),
-            //     () -> System.out.println("Transición terminada")
-            // );
+            var panelTransicion = mainVista.getPaginaJuego().getPanelTransicion();
+            panelTransicion.iniciar(
+                 () -> System.out.println("Punto medio"),
+                 () -> System.out.println("Transición terminada")
+             );
 
             // =========================
             // OCULTAR TODOS

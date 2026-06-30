@@ -36,15 +36,17 @@ public class PaginaJuego extends JPanel {
 
         ImagenFondo fondo = new ImagenFondo("/imagenes/fondos/juego.png");
         fondo.setBounds(0, 0, ANCHO, ALTO);
+        
+        panelTransicion = new PanelTransicionMano();
+        panelTransicion.setBounds(MAPA_X, MAPA_Y, MAPA_ANCHO, MAPA_ALTO);
+        panelTransicion.setVisible(false);
+        add(panelTransicion);
 
         contenedorMapa = new ContenedorMapa(DimensionTablero.ESTANDAR);
         contenedorMapa.setBounds(MAPA_X, MAPA_Y, MAPA_ANCHO, MAPA_ALTO);
         add(contenedorMapa);
 
-        panelTransicion = new PanelTransicionMano();
-        panelTransicion.setBounds(MAPA_X, MAPA_Y, MAPA_ANCHO, MAPA_ALTO);
-        panelTransicion.setVisible(false);
-        add(panelTransicion);
+        
 
         panelHUD = new PanelHUD(HUD_ANCHO, HUD_ALTO);
         panelHUD.setBounds(HUD_X, HUD_Y, HUD_ANCHO, HUD_ALTO);
