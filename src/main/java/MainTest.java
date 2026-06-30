@@ -27,14 +27,14 @@ public class MainTest {
             // =========================
             //mainVista.mostrarPausa();
             //mainVista.mostrarVictoria(12345);
-            mainVista.mostrarDerrota("Te quedaste sin movimientos");
+            //mainVista.mostrarDerrota("Te quedaste sin movimientos");
 
             // =========================
             // CUENTA ATRÁS
             // =========================
-            // mainVista.getOverlayCuentaAtras().iniciar(() ->
-            //     System.out.println("Cuenta atrás terminada")
-            // );
+            mainVista.getOverlayCuentaAtras().iniciar(() ->
+              System.out.println("Cuenta atrás terminada")
+            );
 
             // =========================
             // TRANSICIÓN MANO
