@@ -56,6 +56,15 @@ public class Tablero {
         capaMovible[destino.getFila()][destino.getColumna()] = entidad;
         entidad.setPosicion(destino);
     }
+    
+    public void restaurarPosicionMovible(EntidadMovible entidad, Coordenada posicionAnterior) {
+        Coordenada posicionActual = entidad.getPosicion();
+        if (posicionActual != null) {
+            capaMovible[posicionActual.getFila()][posicionActual.getColumna()] = null;
+        }
+        capaMovible[posicionAnterior.getFila()][posicionAnterior.getColumna()] = entidad;
+        entidad.setPosicion(posicionAnterior);
+    }
 
     public int getFilaMax() {
         return filaMax;

@@ -46,7 +46,7 @@ public class EstrategiaFragil implements ComportamientoCaja {
     }
     @Override
     public TipoEntidad getTipoEntidad() {
-        return TipoEntidad.CAJA;
+        return TipoEntidad.CAJA_FRAGIL;
     }
     
 }

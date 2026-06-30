@@ -2,6 +2,8 @@ package modelo.historial;
 
 import java.util.List;
 
+import modelo.entidades.Tablero;
+
 public class Memento {
 
     private final List<EstadoEntidadMovible> estados;
@@ -12,9 +14,9 @@ public class Memento {
         this.estadoCandado = estadoCandado;
     }
 
-    public void restaurar() {
+    public void restaurar(Tablero tablero) {
         for (EstadoEntidadMovible estado : estados) {
-            estado.restaurar();
+            estado.restaurar(tablero);
         }
         if (estadoCandado != null) {
             estadoCandado.restaurar();

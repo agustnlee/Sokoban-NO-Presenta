@@ -67,7 +67,7 @@ public class ControladorJuego {
     public DTOResultado undo() {
         Memento objetivo = historial.deshacer();
         if (objetivo != null) {
-            objetivo.restaurar();
+            objetivo.restaurar(tablero);
         }
 
         puntaje.registrarUndo();

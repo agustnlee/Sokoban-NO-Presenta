@@ -1,6 +1,7 @@
 package modelo.historial;
 
 import modelo.entidades.Coordenada;
+import modelo.entidades.Tablero;
 import modelo.entidades.movible.EntidadMovible;
 
 public class EstadoEntidadMovible {
@@ -13,7 +14,7 @@ public class EstadoEntidadMovible {
         this.posicion = posicion;
     }
 
-    public void restaurar() {
-        entidad.setPosicion(posicion);
+    public void restaurar(Tablero tablero) {
+        tablero.restaurarPosicionMovible(entidad, posicion);
     }
 }
