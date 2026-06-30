@@ -31,7 +31,7 @@ public class OverlayVictoria extends OverlayOscuro {
 
         lblPuntaje   = new JLabel("Puntaje: 0", JLabel.CENTER);
         btnSiguiente = crearBoton("siguiente");
-        btnMenu      = crearBoton("menu");
+        btnMenu = crearBoton("volver");
 
         JPanel contenido = construirContenido();
         contenido.setBounds(

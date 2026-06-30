@@ -32,7 +32,7 @@ public final class CargadorImagen {
     private BufferedImage leerDesdeDisco(String path) {
         try {
             URL url = CargadorImagen.class.getResource(path);
-            if (url == null) return null;
+            if (url == null) { System.out.println("NO ENCONTRADO: " + path); return null; }
             return convertirArgb(ImageIO.read(url));
         } catch (IOException e) {
             return null;

@@ -31,7 +31,7 @@ public class OverlayDerrota extends OverlayOscuro {
 
         lblMotivo    = new JLabel("", JLabel.CENTER);
         btnReiniciar = crearBoton("reiniciar");
-        btnMenu      = crearBoton("menu");
+        btnMenu = crearBoton("volver");
 
         JPanel contenido = construirContenido();
         contenido.setBounds(

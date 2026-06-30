@@ -40,8 +40,6 @@ public class ControladorPaginaJuego {
 
         panelHUD.setOnUndo(this::solicitarUndo);
         panelHUD.setOnPausa(controladorJuego::mostrarPausa);
-        panelHUD.setOnReiniciar(this::reiniciarNivel);
-        panelHUD.setOnMenu(controladorJuego::mostrarInicio);
     }
 
     public void cargarNivel(int nivel) {
