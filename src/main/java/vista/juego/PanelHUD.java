@@ -44,7 +44,7 @@ public class PanelHUD extends JPanel {
     public void setNivel(int v) { lblNivel.setValor(v); }
 
     public void resetearContadores() {
-        lblPuntaje.setValor(1000);
+        lblPuntaje.setValor(130);
         lblMovimientos.resetear();
         lblUndos.resetear();
     }
