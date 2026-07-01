@@ -1,5 +1,7 @@
 package vista.juego;
 
+import vista.sonido.GestorSonido;
+import vista.sonido.Sonido;
 import vista.utils.CargadorImagen;
 import vista.utils.EscaladorImagen;
 
@@ -28,10 +30,7 @@ public class BotonNivel extends JPanel {
     private boolean             mouseOver = false;
     private Runnable            onClick;
 
-    /**
-     * @param numeroNivel   número del nivel (se muestra sobre la imagen)
-     * @param pathScreenshot path al screenshot del nivel en resources
-     */
+
     public BotonNivel(int numeroNivel, String pathScreenshot) {
         this.numeroNivel = numeroNivel;
         this.screenshot  = cargarScreenshot(pathScreenshot);
@@ -42,9 +41,17 @@ public class BotonNivel extends JPanel {
         setOpaque(false);
 
         addMouseListener(new MouseAdapter() {
-            @Override public void mouseEntered(MouseEvent e) { mouseOver = true;  repaint(); }
-            @Override public void mouseExited (MouseEvent e) { mouseOver = false; repaint(); }
+            @Override public void mouseEntered(MouseEvent e) {
+                mouseOver = true;
+                repaint();
+                GestorSonido.getInstancia().reproducir(Sonido.HOVER_BOTON_NIVEL);
+            }
+            @Override public void mouseExited(MouseEvent e) {
+                mouseOver = false;
+                repaint();
+            }
             @Override public void mouseClicked(MouseEvent e) {
+                GestorSonido.getInstancia().reproducir(Sonido.CLICK_BOTON_NIVEL);
                 if (onClick != null) onClick.run();
             }
         });
@@ -67,7 +74,6 @@ public class BotonNivel extends JPanel {
             g2d.fillRect(0, 0, ANCHO, ALTO);
         }
 
-        // Overlay hover
         if (mouseOver) {
             g2d.setColor(COLOR_HOVER);
             g2d.fillRect(0, 0, ANCHO, ALTO);
