@@ -1,5 +1,7 @@
 package vista.juego;
 
+import vista.sonido.GestorSonido;
+import vista.sonido.Sonido;
 import vista.utils.CargadorImagen;
 
 import javax.swing.JPanel;
@@ -12,7 +14,7 @@ import java.awt.image.BufferedImage;
 public class PanelTransicionMano extends JPanel {
 
     private static final int DURACION_ENTRADA_MS = 150;
-    private static final int DURACION_GARABATO_MS = 300;
+    private static final int DURACION_GARABATO_MS = 250;
     private static final int DURACION_SALIDA_MS = 150;
     private static final int INTERVALO_TICK_MS = 16;
 
@@ -63,6 +65,7 @@ public class PanelTransicionMano extends JPanel {
                 if (progresoMs >= DURACION_ENTRADA_MS) {
                     fase = Fase.GARABATO;
                     progresoMs = 0f;
+                    GestorSonido.getInstancia().reproducir(Sonido.ESCRIBIR_LAPIZ);
                     dispararPuntoMedio();
                 }
                 break;
