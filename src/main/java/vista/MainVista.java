@@ -8,6 +8,8 @@ import vista.paginas.PaginaInicio;
 import vista.paginas.PaginaJuego;
 import vista.paginas.PaginaNiveles;
 import vista.utils.UtilVisibilidad;
+import vista.sonido.GestorSonido;
+import vista.sonido.Sonido;
 
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -86,6 +88,7 @@ public class MainVista {
         UtilVisibilidad.ocultar(paginaNiveles);
         UtilVisibilidad.ocultar(paginaJuego);
         ocultarTodosLosOverlays();
+        GestorSonido.getInstancia().reproducir(Sonido.FONDO_MISTERIO);
     }
 
     public void mostrarNiveles() {
@@ -93,6 +96,7 @@ public class MainVista {
         UtilVisibilidad.mostrar(paginaNiveles);
         UtilVisibilidad.ocultar(paginaJuego);
         ocultarTodosLosOverlays();
+        GestorSonido.getInstancia().reproducir(Sonido.FONDO_NIVELES);
     }
 
     public void mostrarJuego() {
@@ -100,19 +104,24 @@ public class MainVista {
         UtilVisibilidad.ocultar(paginaNiveles);
         UtilVisibilidad.mostrar(paginaJuego);
         ocultarTodosLosOverlays();
+        GestorSonido.getInstancia().reproducir(Sonido.FONDO_JUEGO);
     }
-
+    
     public void mostrarPausa() {
         UtilVisibilidad.mostrar(overlayPausa);
+        GestorSonido.getInstancia().detenerMusica();
     }
 
     public void ocultarPausa() {
         UtilVisibilidad.ocultar(overlayPausa);
+        GestorSonido.getInstancia().reproducir(Sonido.FONDO_JUEGO);
     }
 
     public void mostrarVictoria(int puntaje) {
         overlayVictoria.setPuntaje(puntaje);
         UtilVisibilidad.mostrar(overlayVictoria);
+        GestorSonido.getInstancia().detenerMusica();
+        GestorSonido.getInstancia().reproducir(Sonido.VICTORIA);
     }
 
     public void ocultarVictoria() {
@@ -122,6 +131,8 @@ public class MainVista {
     public void mostrarDerrota(String motivo) {
         overlayDerrota.setMotivo(motivo);
         UtilVisibilidad.mostrar(overlayDerrota);
+        GestorSonido.getInstancia().detenerMusica();
+        GestorSonido.getInstancia().reproducir(Sonido.DERROTA);
     }
 
     public void ocultarDerrota() {
