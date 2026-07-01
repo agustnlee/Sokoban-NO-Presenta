@@ -4,17 +4,18 @@ import vista.MainVista;
 import vista.juego.ContenedorMapa;
 import vista.juego.PanelTransicionMano;
 import vista.overlays.OverlayCuentaAtras;
+import vista.sonido.GestorSonido;
 
 import java.util.List;
 
 public class ControladorPrincipal {
-
     private static final int CANTIDAD_NIVELES = 6; 
     private final MainVista mainVista;
     private final ControladorJuego controladorJuego;
     private final ControladorPaginaJuego controladorPaginaJuego;
 
     public ControladorPrincipal() {
+        GestorSonido.getInstancia().precargar();
         List<String> screenshots = List.of(
             "/imagenes/niveles/nivel1.png",
             "/imagenes/niveles/nivel2.png",

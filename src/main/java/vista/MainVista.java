@@ -69,7 +69,7 @@ public class MainVista {
         montarPaginas();
         montarOverlays();
 
-        UtilVisibilidad.mostrar(paginaInicio);
+        mostrarInicio();
         UtilVisibilidad.ocultar(paginaNiveles);
         UtilVisibilidad.ocultar(paginaJuego);
         UtilVisibilidad.ocultar(overlayPausa);
