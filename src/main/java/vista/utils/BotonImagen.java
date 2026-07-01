@@ -1,5 +1,8 @@
 package vista.utils;
 
+import vista.sonido.GestorSonido;
+import vista.sonido.Sonido;
+
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
@@ -12,16 +15,35 @@ public class BotonImagen extends JPanel {
     private BufferedImage imagenHover;
     private boolean mouseOver = false;
 
+
+    // default
     public BotonImagen(String pathNormal, String pathHover) {
+        this(pathNormal, pathHover, Sonido.CLICK_BOTON, Sonido.HOVER_BOTON);
+    }
+
+    public BotonImagen(String pathNormal, String pathHover, Sonido sonidoClick, Sonido sonidoHover) {
         setOpaque(false);
         setLayout(null);
+
         CargadorImagen cargador = CargadorImagen.getInstancia();
         this.imagenNormal = cargador.cargar(pathNormal);
         this.imagenHover  = cargador.cargar(pathHover);
 
         addMouseListener(new MouseAdapter() {
-            @Override public void mouseEntered(MouseEvent e) { mouseOver = true;  repaint(); }
-            @Override public void mouseExited (MouseEvent e) { mouseOver = false; repaint(); }
+            @Override public void mouseEntered(MouseEvent e) {
+                mouseOver = true;
+                repaint();
+                if (isEnabled() && sonidoHover != null)
+                    GestorSonido.getInstancia().reproducir(sonidoHover);
+            }
+            @Override public void mouseExited(MouseEvent e) {
+                mouseOver = false;
+                repaint();
+            }
+            @Override public void mouseClicked(MouseEvent e) {
+                if (isEnabled() && sonidoClick != null)
+                    GestorSonido.getInstancia().reproducir(sonidoClick);
+            }
         });
     }
 
